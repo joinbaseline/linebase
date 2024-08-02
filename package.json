@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "_with-env": "dotenv -e .env -c -- ",
-    "ios": "cd apps/expo && yarn ios",
-    "android": "cd apps/expo && yarn android",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
     "native": "cd apps/expo && yarn start",
     "watch": "yarn check:type:watch & yarn workspaces foreach -pi --all run watch",
     "web": "yarn build && cd apps/next && yarn dev",
@@ -69,5 +69,12 @@
     "turbo": "^1.10.14",
     "typescript": "^5.3.3"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.1.0",
+  "version": "1.0.0",
+  "dependencies": {
+    "expo": "^51.0.0",
+    "expo-updates": "~0.25.14",
+    "react": "^18.2.0",
+    "react-native": "0.74.1"
+  }
 }

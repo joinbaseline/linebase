@@ -4,7 +4,10 @@ import { supabase } from 'app/utils/supabase/client.native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
-import { LogBox, View } from 'react-native'
+import { LogBox, useColorScheme, View } from 'react-native'
+import { useAtom } from 'jotai';
+import { colorThemeAtom, modeThemeAtom } from '@my/app/utils/atoms.native'
+import { Theme, ThemeName } from '@my/ui'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -16,9 +19,13 @@ export default function HomeLayout() {
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
 
-  const [themeLoaded, setThemeLoaded] = useState(false)
+  const colorScheme = useColorScheme();
+  const [themeLoaded, setThemeLoaded] = useState(false);
+  const [colorTheme, setColorTheme] = useAtom(colorThemeAtom);
+  const [modeTheme, setModeTheme] = useAtom(modeThemeAtom);
   const [sessionLoadAttempted, setSessionLoadAttempted] = useState(false)
   const [initialSession, setInitialSession] = useState<Session | null>(null)
+
   useEffect(() => {
     supabase.auth
       .getSession()
@@ -34,6 +41,7 @@ export default function HomeLayout() {
 
   useEffect(() => {
     loadThemePromise.then(() => {
+      setModeTheme(colorScheme === "dark" ? "dark": "light")
       setThemeLoaded(true)
     })
   }, [])
@@ -48,10 +56,13 @@ export default function HomeLayout() {
     return null
   }
 
+  const themeName = [modeTheme, colorTheme].filter(x => x !== "").join("_") as ThemeName;
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <Provider initialSession={initialSession}>
-        <Stack />
+        <Theme name={themeName}>
+          <Stack />
+        </Theme>
       </Provider>
     </View>
   )

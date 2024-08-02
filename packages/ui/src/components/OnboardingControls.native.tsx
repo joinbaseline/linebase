@@ -1,5 +1,5 @@
 import { ChevronRight } from '@tamagui/lucide-icons'
-import { Button, XStack } from 'tamagui'
+import { Button, View, XStack } from 'tamagui'
 
 import { OnboardingControlsProps } from './OnboardingControls'
 
@@ -23,6 +23,7 @@ export const OnboardingControls = ({
 
   return (
     <XStack jc="space-between" ai="center" p="$5" gap="$5">
+      {/*
       <Button
         chromeless
         pressStyle={{
@@ -33,7 +34,7 @@ export const OnboardingControls = ({
       >
         <Button.Text col="$color">Skip</Button.Text>
       </Button>
-
+      */}
       <Button
         pressStyle={{
           bg: '$color6',

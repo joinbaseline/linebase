@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "myapp",
-    "slug": "myapp",
+    "name": "baseline: bipolar care",
+    "slug": "baseline",
     "jsEngine": "hermes",
-    "scheme": "myapp",
+    "scheme": "baseline",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.acme.myapp"
+      "bundleIdentifier": "com.bipolar.baseline.mobile"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
@@ -30,7 +30,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.acme.myapp",
+      "package": "com.acme.baseline",
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]
@@ -63,12 +63,12 @@
         "origin": false
       },
       "eas": {
-        "projectId": ""
+        "projectId": "25ed117e-1782-4c05-aa22-7cfad5664026"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
-    "owner": "tamagui-team"
+    "owner": "baselinemobile"
   }
 }

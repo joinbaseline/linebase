@@ -71,6 +71,7 @@ export const StepContent = ({
           mt: '$3',
           col: '$color9',
         }}
+        style={{ userSelect: 'none' }}
       >
         {description}
       </Paragraph>

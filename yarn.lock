@@ -11095,9 +11095,12 @@ __metadata:
     expo-image-picker: "npm:~15.0.5"
     expo-linking: "npm:~6.3.1"
     expo-secure-store: "npm:~13.0.1"
+    jotai: "npm:^2.9.1"
     react-hook-form: "npm:^7.46.1"
     react-native: "npm:0.74.1"
+    react-native-mmkv: "npm:^2.12.2"
     react-native-safe-area-context: "npm:4.10.1"
+    react-native-url-polyfill: "npm:^2.0.0"
     solito: "npm:^4.0.1"
     superjson: "npm:^1.13.1"
     typescript: "npm:^5.3.3"
@@ -11765,8 +11768,12 @@ __metadata:
     dotenv: "npm:^16.0.3"
     dotenv-cli: "npm:^6.0.0"
     eslint: "npm:^8.46.0"
+    expo: "npm:^51.0.0"
+    expo-updates: "npm:~0.25.14"
     node-gyp: "npm:^9.3.1"
     prettier: "npm:^2.7.1"
+    react: "npm:^18.2.0"
+    react-native: "npm:0.74.1"
     turbo: "npm:^1.10.14"
     typescript: "npm:^5.3.3"
   languageName: unknown
@@ -15798,6 +15805,7 @@ __metadata:
     react-native-clean-project: "npm:^4.0.3"
     react-native-dotenv: "npm:^3.4.9"
     react-native-gesture-handler: "npm:~2.16.1"
+    react-native-mmkv: "npm:^2.12.2"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.1"
     react-native-screens: "npm:~3.31.1"
@@ -19272,6 +19280,21 @@ __metadata:
     react:
       optional: true
   checksum: 10/9dd603d854849e9ef3dc4fb8ed6deae9034310f55cd8de9c54df53f3ac2a62b8f90c773f4bbc28da40ced08d8195805210e658c670f0c8973d78e7c898fb4179
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^2.9.1":
+  version: 2.9.1
+  resolution: "jotai@npm:2.9.1"
+  peerDependencies:
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 10/6cbf4cbebe5fd2630cf31aadb1f51dfac02cf1461daf3542ea09d4f8b9229d387c8790e26ae12fd63a42541c68ca29248fa776e5fe38326ffac6c33dbd65e1c5
   languageName: node
   linkType: hard
 
@@ -23474,6 +23497,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-mmkv@npm:^2.12.2":
+  version: 2.12.2
+  resolution: "react-native-mmkv@npm:2.12.2"
+  peerDependencies:
+    react: "*"
+    react-native: ">=0.71.0"
+  checksum: 10/c1ebb8e81905ee8ce17858ff6096525cbdd0e51892dca80a3cd6e26feb5e979a9c7d609c5a55886150efb0136c5899de174c71115f81607019ed7af68678797b
+  languageName: node
+  linkType: hard
+
 "react-native-modal-datetime-picker@npm:^14.0.0":
   version: 14.0.1
   resolution: "react-native-modal-datetime-picker@npm:14.0.1"
@@ -23566,6 +23599,17 @@ __metadata:
   peerDependencies:
     react-native: "*"
   checksum: 10/e2dcfc11744ab16e841c44d037062dee971cf1387cfc20dd610f175e53eb8c203a1c9d9f0df3570605371560f3e64f6f078f31409846fa1c68dfd316b168df33
+  languageName: node
+  linkType: hard
+
+"react-native-url-polyfill@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "react-native-url-polyfill@npm:2.0.0"
+  dependencies:
+    whatwg-url-without-unicode: "npm:8.0.0-3"
+  peerDependencies:
+    react-native: "*"
+  checksum: 10/6a8d605eeb1b0ee9b0f47f1866acc2edfa2131a4a8fb1ea3839ceb507e225b894ed66f49a3bd826fc964f2c8005b3678c9d3b65d07eb0a3b979be830cb618686
   languageName: node
   linkType: hard
 
