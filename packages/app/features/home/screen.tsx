@@ -20,7 +20,7 @@ import {
   validToken,
 } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
-import { ArrowRight, DollarSign, Pencil, User, Users } from '@tamagui/lucide-icons'
+import { ArrowRight, LineChart, Pencil, User, Users } from '@tamagui/lucide-icons'
 import { api } from 'app/utils/api'
 import { modeThemeAtom } from 'app/utils/atoms.native'
 import { useAtom } from 'jotai'
@@ -162,7 +162,7 @@ const AchievementsSection = () => {
 
       <ScrollAdapt>
         <XStack px="$4" fw="wrap" f={1} gap="$3">
-          <Theme name="green">
+          <Theme name="green_alt1">
             <AchievementCard
               w={300}
               $gtMd={{
@@ -171,11 +171,11 @@ const AchievementsSection = () => {
               $gtLg={{
                 w: quarterMinusSpace,
               }}
-              icon={DollarSign}
-              title="Make your first 100K"
-              progress={{ current: 81_500, full: 100_000, label: 'dollars made' }}
+              icon={LineChart}
+              title="Build a habit"
+              progress={{ current: 27, full: 30, label: 'days logged in a row' }}
               action={{
-                text: 'Boost your sales',
+                text: 'Track your mood',
                 props: useLink({ href: '#' }),
               }}
             />
@@ -245,31 +245,26 @@ const OverviewSection = () => {
     <YStack gap="$4">
       <XStack px="$4.5" ai="center" gap="$2" jc="space-between" mb="$4">
         <H4 fow="400">Overview</H4>
-        <Theme name="alt2">
-          <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
-            View All Stats
-          </Button>
-        </Theme>
+        <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
+          View All Stats
+        </Button>
       </XStack>
 
       <ScrollAdapt>
         <XStack fw="wrap" ai="flex-start" jc="flex-start" px="$4" gap="$8" mb="$4">
-          <OverviewCard title="MRR" value="$18,908" badgeText="+0.5%" badgeState="success" />
-
-          <OverviewCard title="ARR" value="$204,010" badgeText="+40.5%" badgeState="success" />
-
+          <OverviewCard title="Average Mood" value="7.3" badgeText="+0.5%" badgeState="success" />
+          <OverviewCard title="Activity" value="11,283" badgeText="+40.5%" badgeState="success" />
           <OverviewCard
-            title="Today's new users"
-            value="4 Users"
+            title="Average Stress Score"
+            value="8"
+            badgeText="+10%"
+            badgeState="failure"
+          />
+          <OverviewCard
+            title="Support Circle"
+            value="4 Supporters"
             badgeText="+25%"
             badgeState="success"
-          />
-
-          <OverviewCard
-            title="Weekly Post Views"
-            value="30,104"
-            badgeText="-2%"
-            badgeState="failure"
           />
         </XStack>
       </ScrollAdapt>
@@ -289,11 +284,9 @@ const PostsSection = () => {
     <YStack gap="$4">
       <XStack px="$4.5" ai="center" gap="$2" jc="space-between" mb="$4">
         <H4 fow="400">Latest Posts</H4>
-        <Theme name="alt2">
-          <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
-            View All Posts
-          </Button>
-        </Theme>
+        <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
+          View All Posts
+        </Button>
       </XStack>
       <ScrollAdapt>
         <XStack px="$4" gap="$4" mb="$4" jc="flex-start" fw="wrap">

@@ -19,7 +19,7 @@ export const OverviewCard = ({
   return (
     <Card br="$0" bg="transparent" miw={200} $gtMd={{ miw: 220, f: 1, fb: 0 }} {...props}>
       <Card.Header f={1} jc="space-between">
-        <H6 size="$4" fow="$1" theme="alt2">
+        <H6 size="$4" fow="$1">
           {title}
         </H6>
         <H2 mt="$2">{value}</H2>
@@ -28,9 +28,9 @@ export const OverviewCard = ({
             <Theme
               name={
                 badgeState === 'success'
-                  ? 'green_alt1'
+                  ? 'green'
                   : badgeState === 'failure'
-                  ? 'red_alt1'
+                  ? 'red'
                   : undefined
               }
             >
