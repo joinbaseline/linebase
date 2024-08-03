@@ -3664,6 +3664,7 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.18.9"
     "@hookform/resolvers": "npm:^3.1.0"
+    "@tamagui-google-fonts/eb-garamond": "npm:*"
     "@tamagui/animations-moti": "npm:^1.101.0"
     "@tamagui/animations-react-native": "npm:^1.101.0"
     "@tamagui/build": "npm:^1.101.0"
@@ -3681,6 +3682,7 @@ __metadata:
     eslint-config-custom: "npm:*"
     moti: "npm:^0.25.3"
     react-hook-form: "npm:^7.46.1"
+    react-native-svg: "npm:^15.4.0"
     tamagui: "npm:^1.101.0"
     typescript: "npm:^5.3.3"
     zod: "npm:^3.22.2"
@@ -7523,6 +7525,17 @@ __metadata:
   checksum: 10/9b63853bd53bff72c4990ebc9cd3f625bbab757247099af172564da6649a27a1d41b1a70cd849dd65b2a078300029c1c80bf3079e6a91e285da7b259eb147146
   languageName: node
   linkType: hard
+
+"@tamagui-google-fonts/eb-garamond@npm:*, @tamagui-google-fonts/eb-garamond@workspace:packages/font-eb-garamond":
+  version: 0.0.0-use.local
+  resolution: "@tamagui-google-fonts/eb-garamond@workspace:packages/font-eb-garamond"
+  dependencies:
+    "@tamagui/build": "npm:^1.101.0"
+    subset-font: "npm:^1.6.1"
+  peerDependencies:
+    "@tamagui/core": "*"
+  languageName: unknown
+  linkType: soft
 
 "@tamagui/accordion@npm:1.101.0":
   version: 1.101.0
@@ -15770,6 +15783,7 @@ __metadata:
     "@my/ui": "npm:*"
     "@react-native-async-storage/async-storage": "npm:1.23.1"
     "@react-native-community/netinfo": "npm:11.3.1"
+    "@tamagui-google-fonts/eb-garamond": "npm:*"
     "@tamagui/babel-plugin": "npm:^1.101.0"
     app: "npm:*"
     babel-plugin-module-resolver: "npm:^4.1.0"
@@ -15809,8 +15823,8 @@ __metadata:
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.1"
     react-native-screens: "npm:~3.31.1"
-    react-native-svg: "npm:15.2.0"
-    react-native-url-polyfill: "npm:^1.3.0"
+    react-native-svg: "npm:^15.4.0"
+    react-native-url-polyfill: "npm:^2.0.0"
     react-native-web: "npm:~0.19.10"
     typescript: "npm:^5.3.3"
   languageName: unknown
@@ -23571,16 +23585,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-svg@npm:15.2.0":
-  version: 15.2.0
-  resolution: "react-native-svg@npm:15.2.0"
+"react-native-svg@npm:^15.4.0":
+  version: 15.4.0
+  resolution: "react-native-svg@npm:15.4.0"
   dependencies:
     css-select: "npm:^5.1.0"
     css-tree: "npm:^1.1.3"
+    warn-once: "npm:0.1.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/5042e1377b9d66679898ce812760691d01602efac27a32eed0914b518652c66d575dc7eb1493d3315a7db043d4974796d9107fe17f4b331b6bbbff16906016e9
+  checksum: 10/73829060eec1a7979dd2cbe6ebf93cb9f06d8ceaf2215635d6e219a7b4159af49f03db1196b8ee733bbe432314292f7a5fdf9f863c9896088444c93eeaffe2eb
   languageName: node
   linkType: hard
 
@@ -23588,17 +23603,6 @@ __metadata:
   version: 1.0.5
   resolution: "react-native-swipe-gestures@npm:1.0.5"
   checksum: 10/d637bc40baa50fa0ce3b6cf2b494efeceaea03cc3875cb7cf7d76922914a21d5e6b098d4a084fb291ce61bfbb0a241c03cff24b15bebf0cfae1c146f4ad10d92
-  languageName: node
-  linkType: hard
-
-"react-native-url-polyfill@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "react-native-url-polyfill@npm:1.3.0"
-  dependencies:
-    whatwg-url-without-unicode: "npm:8.0.0-3"
-  peerDependencies:
-    react-native: "*"
-  checksum: 10/e2dcfc11744ab16e841c44d037062dee971cf1387cfc20dd610f175e53eb8c203a1c9d9f0df3570605371560f3e64f6f078f31409846fa1c68dfd316b168df33
   languageName: node
   linkType: hard
 
@@ -27944,7 +27948,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"warn-once@npm:^0.1.0":
+"warn-once@npm:0.1.1, warn-once@npm:^0.1.0":
   version: 0.1.1
   resolution: "warn-once@npm:0.1.1"
   checksum: 10/e6a5a1f5a8dba7744399743d3cfb571db4c3947897875d4962a7c5b1bf2195ab4518c838cb4cea652e71729f21bba2e98dc75686f5fccde0fabbd894e2ed0c0d

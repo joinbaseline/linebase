@@ -1,23 +1,46 @@
+import { getVariableValue } from 'tamagui'
 import { createInterFont } from '@tamagui/font-inter'
+import { createEbGaramondFont } from '@tamagui-google-fonts/eb-garamond'
 
-export const headingFont = createInterFont(
+const headingSize = {
+  1: 11,
+  2: 12,
+  3: 13,
+  4: 14,
+  true: 14,
+  5: 16,
+  6: 18,
+  7: 20,
+  8: 23,
+  9: 30,
+  10: 46,
+  11: 55,
+  12: 62,
+  13: 72,
+  14: 80,
+  15: 92,
+  16: 100,
+}
+
+export const headingFont = createEbGaramondFont(
   {
-    size: {
-      6: 15,
-    },
+    size: Object.fromEntries(Object.entries(headingSize).map(([k, v]) => [k, getVariableValue(v)])),
+    lineHeight: Object.fromEntries(
+      Object.entries(headingSize).map(([k, v]) => [k, getVariableValue(v) + 4])
+    ),
     transform: {
-      6: 'uppercase',
-      7: 'none',
+      1: 'none',
     },
     weight: {
       3: '500',
       4: '700',
     },
     face: {
-      700: { normal: 'InterBold' },
+      700: { normal: 'EBGaramondBold' },
     },
   },
   {
+
     sizeSize: (size) => size,
     sizeLineHeight: (fontSize) => fontSize + 4,
   }
@@ -26,7 +49,7 @@ export const headingFont = createInterFont(
 export const bodyFont = createInterFont(
   {
     face: {
-      700: { normal: 'InterBold' },
+      300: { normal: 'InterBold' },
     },
   },
   {
