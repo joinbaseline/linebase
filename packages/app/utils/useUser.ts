@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 
 import { useSessionContext } from './supabase/useSessionContext'
 import { useSupabase } from './supabase/useSupabase'
+import { useAtom } from 'jotai'
+import { localAboutAtom, localEmailAtom, localFirstNameAtom, localLastNameAtom } from './atoms.native'
 
 function useProfile() {
   const { session } = useSessionContext()
@@ -28,28 +30,42 @@ function useProfile() {
 
 export const useUser = () => {
   const { session, isLoading: isLoadingSession } = useSessionContext()
-  const user = session?.user
-  const { data: profile, refetch, isLoading: isLoadingProfile } = useProfile()
+  const user = session?.user || { id: "testID" }
+  // const { data: profile, refetch, isLoading: isLoadingProfile } = useProfile()
 
-  const avatarUrl = (function () {
-    if (profile?.avatar_url) return profile.avatar_url
-    if (typeof user?.user_metadata.avatar_url === 'string') return user.user_metadata.avatar_url
+  const [localEmail, setLocalEmail] = useAtom(localEmailAtom);
+  const [localFirstName, setLocalFirstName] = useAtom(localFirstNameAtom);
+  const [localLastName, setLocalLastName] = useAtom(localLastNameAtom);
+  const [localAbout, setLocalAbout] = useAtom(localAboutAtom);
+  const [localAvatar, setLocalAvatar] = useAtom(localLastNameAtom);
 
-    const params = new URLSearchParams()
-    const name = profile?.name || user?.email || ''
-    params.append('name', name)
-    params.append('size', '256') // will be resized again by NextImage/SolitoImage
-    return `https://ui-avatars.com/api.jpg?${params.toString()}`
-  })()
+  const profile = {
+    email: localEmail,
+    firstName: localFirstName,
+    lastName: localLastName,
+    about: localAbout
+  }
+
+  const avatarUrl = localAvatar;
+  // const avatarUrl = (function () {
+  //   if (profile?.avatar_url) return profile.avatar_url
+  //   if (typeof user?.user_metadata.avatar_url === 'string') return user.user_metadata.avatar_url
+
+  //   const params = new URLSearchParams()
+  //   const name = profile?.name || user?.email || ''
+  //   params.append('name', name)
+  //   params.append('size', '256') // will be resized again by NextImage/SolitoImage
+  //   return `https://ui-avatars.com/api.jpg?${params.toString()}`
+  // })()
 
   return {
     session,
     user,
     profile,
     avatarUrl,
-    updateProfile: () => refetch(),
+    // updateProfile: () => refetch(),
     isLoadingSession,
-    isLoadingProfile,
-    isLoading: isLoadingSession || isLoadingProfile,
+    // isLoadingProfile,
+    // isLoading: isLoadingSession || isLoadingProfile,
   }
 }

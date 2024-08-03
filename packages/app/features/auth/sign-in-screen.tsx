@@ -10,7 +10,7 @@ import { useRouter } from 'solito/router'
 import { z } from 'zod'
 import { useAtom } from 'jotai'
 
-import { modeThemeAtom } from 'app/utils/atoms.native'
+import { localEmailAtom, localPasswordAtom, modeThemeAtom, signedInAtom } from 'app/utils/atoms.native'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 
@@ -25,6 +25,23 @@ export const SignInScreen = () => {
   const [modeTheme, _] = useAtom(modeThemeAtom)
   const supabase = useSupabase()
   const router = useRouter()
+
+  const [localEmail, setLocalEmail] = useAtom(localEmailAtom);
+  const [localPassword, setLocalPassword] = useAtom(localPasswordAtom);
+  const [signedIn, setSignedIn] = useAtom(signedInAtom);
+  const localSignIn = (email, password) => {
+    if (email === localEmail && password === localPassword) {
+      setSignedIn(true)
+      router.replace('/')
+    } else {
+      if (email !== localEmail) {
+        form.setError('email', { type: 'custom', message: "Invalid email" })
+      } else {
+        form.setError('password', { type: 'custom', message: "Invalid password" })
+      }
+    }
+  }
+
   const { params } = useParams()
   const updateParams = useUpdateParams()
   useRedirectAfterSignIn()
@@ -37,12 +54,11 @@ export const SignInScreen = () => {
   }, [params?.email, updateParams])
   const form = useForm<z.infer<typeof SignInSchema>>()
 
-  async function signInWithEmail({ email, password }: z.infer<typeof SignInSchema>) {
+  async function supabaseSignIn(email, password) {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
-
     if (error) {
       const errorMessage = error?.message.toLowerCase()
       if (errorMessage.includes('email')) {
@@ -55,6 +71,11 @@ export const SignInScreen = () => {
     } else {
       router.replace('/')
     }
+  }
+
+  async function signInWithEmail({ email, password }: z.infer<typeof SignInSchema>) {
+    localSignIn(email, password);
+    // await supabaseSignIn;
   }
 
   return (
@@ -137,16 +158,20 @@ const ForgotPasswordLink = () => {
 // we use this hook here because this is the page we redirect unauthenticated users to
 // if they authenticate on this page, this will redirect them to the home page
 function useRedirectAfterSignIn() {
-  const supabase = useSupabase()
+  // const supabase = useSupabase()
   const router = useRouter()
+  const [signedIn, _] = useAtom(signedInAtom)
   useEffect(() => {
-    const signOutListener = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_IN') {
-        router.replace('/')
-      }
-    })
-    return () => {
-      signOutListener.data.subscription.unsubscribe()
+    if (signedIn) {
+      router.replace('/')
     }
-  }, [supabase, router])
+    // const signOutListener = supabase.auth.onAuthStateChange((event) => {
+    //   if (event === 'SIGNED_IN') {
+    //     router.replace('/')
+    //   }
+    // })
+    // return () => {
+    //   signOutListener.data.subscription.unsubscribe()
+    // }
+  }, [router, signedIn])// [supabase, router])
 }

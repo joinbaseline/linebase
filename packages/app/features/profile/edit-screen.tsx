@@ -6,6 +6,7 @@ import { useUser } from 'app/utils/useUser'
 import { createParam } from 'solito'
 import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
+import { CircleUser } from '@tamagui/lucide-icons'
 import { z } from 'zod'
 
 import { api } from '../../utils/api'
@@ -18,7 +19,10 @@ export const EditProfileScreen = () => {
   if (!profile || !user?.id) {
     return <FullscreenSpinner />
   }
-  return <EditProfileForm userId={user.id} initial={{ name: profile.name, about: profile.about }} />
+  return <EditProfileForm userId={user.id} initial={{ 
+    name: profile.firstName,
+    about: profile.about
+  }} />
 }
 
 const ProfileSchema = z.object({
@@ -94,8 +98,9 @@ const EditProfileForm = ({
 const UserAvatar = () => {
   const { avatarUrl } = useUser()
   return (
-    <Avatar circular size={128}>
-      <SolitoImage src={avatarUrl} alt="your avatar" width={128} height={128} />
-    </Avatar>
+    avatarUrl !== "" ? (
+      <Avatar circular size={128}>
+        <SolitoImage src={avatarUrl} alt="your avatar" width={128} height={128} />
+      </Avatar>): <CircleUser size={128} />
   )
 }

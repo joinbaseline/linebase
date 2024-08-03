@@ -1,12 +1,12 @@
 import { Session } from '@supabase/supabase-js'
-import { Provider, loadThemePromise } from 'app/provider'
+import { LocalProvider, Provider, loadThemePromise } from 'app/provider'
 import { supabase } from 'app/utils/supabase/client.native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { LogBox, useColorScheme, View } from 'react-native'
 import { useAtom } from 'jotai';
-import { colorThemeAtom, modeThemeAtom } from '@my/app/utils/atoms.native'
+import { colorThemeAtom, modeThemeAtom, signedInAtom } from '@my/app/utils/atoms.native'
 import { Theme, ThemeName } from '@my/ui'
 
 SplashScreen.preventAutoHideAsync()
@@ -34,10 +34,16 @@ export default function HomeLayout() {
   const [colorTheme, setColorTheme] = useAtom(colorThemeAtom);
   const [modeTheme, setModeTheme] = useAtom(modeThemeAtom);
   const [themeName, setThemeName] = useState(modeTheme);
+  const [signedIn, setSignedIn] = useAtom(signedInAtom);
+
   const [sessionLoadAttempted, setSessionLoadAttempted] = useState(false)
   const [initialSession, setInitialSession] = useState<Session | null>(null)
 
-  useEffect(() => {
+  const checkLocalAuthSession = () => {
+    setSessionLoadAttempted(true)
+  }  
+
+  const checkSupabaseAuthSession = () => {
     supabase.auth
       .getSession()
       .then(({ data }) => {
@@ -48,6 +54,14 @@ export default function HomeLayout() {
       .finally(() => {
         setSessionLoadAttempted(true)
       })
+  }
+
+  const checkAuthSession = () => {
+    checkLocalAuthSession();
+  }
+
+  useEffect(() => {
+    checkAuthSession();
   }, [])
 
   useEffect(() => {
@@ -71,11 +85,12 @@ export default function HomeLayout() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Provider initialSession={initialSession}>
+      {/* When Supabase on, use actual Provider */}
+      <LocalProvider initialSession={initialSession}>
         <Theme name={[modeTheme, colorTheme].filter(x => x !== "").join("_") as ThemeName}>
           <Stack />
         </Theme>
-      </Provider>
+      </LocalProvider>
     </View>
   )
 }

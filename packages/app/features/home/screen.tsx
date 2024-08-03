@@ -11,6 +11,7 @@ import {
   ScrollView,
   Separator,
   Theme,
+  ThemeName,
   TodoCard,
   XStack,
   YStack,
@@ -18,8 +19,11 @@ import {
   useMedia,
   validToken,
 } from '@my/ui'
+import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ArrowRight, DollarSign, Pencil, User, Users } from '@tamagui/lucide-icons'
 import { api } from 'app/utils/api'
+import { modeThemeAtom } from 'app/utils/atoms.native'
+import { useAtom } from 'jotai'
 import React from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/link'
@@ -38,23 +42,27 @@ const defaultAuthors = [
 ]
 
 export function HomeScreen() {
+  const [modeTheme, _] = useAtom(modeThemeAtom);
   return (
-    <XStack maw={1480} als="center" f={1}>
-      <ScrollView f={3} fb={0}>
-        <YStack gap="$3" pt="$5" pb="$8">
-          <Greetings />
-          <YStack gap="$6">
-            <AchievementsSection />
-            <OverviewSection />
-            <PostsSection />
+    <YStack theme={modeTheme as ThemeName} bg="$color1" f={1}>
+      <WaveBackground flipX />
+      <XStack maw={1480} als="center" f={1}>
+        <ScrollView f={3} fb={0}>
+          <YStack gap="$3" pt="$5" pb="$8">
+            <Greetings />
+            <YStack gap="$6">
+              <AchievementsSection />
+              <OverviewSection />
+              <PostsSection />
+            </YStack>
           </YStack>
-        </YStack>
-      </ScrollView>
+        </ScrollView>
 
-      <Separator vertical />
+        <Separator vertical />
 
-      {isWeb && <EventCards />}
-    </XStack>
+        {isWeb && <EventCards />}
+      </XStack>
+    </YStack>
   )
 }
 
@@ -365,10 +373,10 @@ function ScrollAdapt({ children }: { children: React.ReactNode }) {
 }
 
 const Greetings = () => {
-  const greetingQuery = api.greeting.greet.useQuery()
+  // const greetingQuery = api.greeting.greet.useQuery()
   return (
-    <H2 px="$4" my="$2">
-      {greetingQuery.data || '-'}
+    <H2 px="$4">
+      Welcome!{/*greetingQuery.data || '-'*/}
     </H2>
   )
 }

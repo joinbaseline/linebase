@@ -6,3 +6,12 @@ import { atomWithMMKV } from "./storage.native";
 // - colorTheme is orange / blue / etc.
 export const modeThemeAtom = atomWithMMKV('modeTheme', "")
 export const colorThemeAtom = atomWithMMKV('colorTheme', "")
+
+// Local user data:
+export const localEmailAtom = atomWithMMKV('localEmail', "");
+export const localPasswordAtom = atomWithMMKV('localPassword', "");
+export const localFirstNameAtom = atomWithMMKV('localFirstName', "");
+export const localLastNameAtom = atomWithMMKV('localLastName', "");
+export const localAvatarAtom = atomWithMMKV('localAvatarURL', "");
+export const localAboutAtom = atomWithMMKV('localAbout', "");
+export const signedInAtom = atomWithMMKV('signedIn', false);

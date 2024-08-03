@@ -6,43 +6,51 @@ import {
   Paragraph,
   ScrollView,
   Settings,
+  ThemeName,
   XStack,
   YStack,
   getTokens,
 } from '@my/ui'
-import { Box, Cog, Milestone, ShoppingCart, Users } from '@tamagui/lucide-icons'
+import { WaveBackground } from '@my/ui/src/components/WaveBackground'
+import { Box, Cog, Milestone, ShoppingCart, Users, CircleUser } from '@tamagui/lucide-icons'
+import { modeThemeAtom } from 'app/utils/atoms.native'
 import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets'
 import { useUser } from 'app/utils/useUser'
+import { useAtom } from 'jotai'
 import { SolitoImage } from 'solito/image'
 import { Link, useLink } from 'solito/link'
 
 export function ProfileScreen() {
+  const [modeTheme, _] = useAtom(modeThemeAtom)
   const { profile, avatarUrl } = useUser()
-  const name = profile?.name
+  const name = profile?.firstName
   const about = profile?.about
 
   const insets = useSafeAreaInsets()
   return (
-    <ScrollView>
+    <ScrollView bg="$color1">
       <YStack
         maw={600}
+        theme={modeTheme as ThemeName}
+        bg="$color1"
         mx="auto"
         w="100%"
         f={1}
-        gap="$4"
         pb={insets.bottom + 20}
-        pt={insets.top + 10}
       >
-        <YStack gap="$8">
-          <XStack gap="$2" jc="center" $sm={{ mt: '$8' }}>
-            <Avatar circular size="$14">
-              <SolitoImage
-                src={avatarUrl}
-                alt="your avatar"
-                width={getTokens().size['14'].val}
-                height={getTokens().size['14'].val}
-              />
-            </Avatar>
+        <WaveBackground />
+        <YStack gap="$4">
+          <XStack gap="$2" jc="center" zi={10}>
+            {avatarUrl ? (
+              <Avatar circular size="$14">
+                <SolitoImage
+                  src={avatarUrl}
+                  alt="your avatar"
+                  width={getTokens().size['14'].val}
+                  height={getTokens().size['14'].val}
+                />
+              </Avatar>): <CircleUser strokeWidth={0.3} size="$12" />
+            }
           </XStack>
           <YStack gap="$2">
             {name ? (
@@ -60,35 +68,36 @@ export function ProfileScreen() {
             )}
           </YStack>
         </YStack>
-        <Button mx="$4" {...useLink({ href: '/profile/edit' })} themeInverse>
-          Edit Profile
-        </Button>
-
-        <Settings>
-          <Settings.Items>
-            <Settings.Group>
-              {/* dummy item - doesn't lead anywhere */}
-              <Settings.Item icon={Box} accentTheme="green">
-                My Items
-              </Settings.Item>
-              {/* dummy item - doesn't lead anywhere */}
-              <Settings.Item icon={Users} accentTheme="orange">
-                Refer Your Friends
-              </Settings.Item>
-              {/* dummy item - doesn't lead anywhere */}
-              <Settings.Item icon={Milestone} accentTheme="blue">
-                Address Info
-              </Settings.Item>
-              {/* dummy item - doesn't lead anywhere */}
-              <Settings.Item icon={ShoppingCart} accentTheme="blue">
-                Purchase History
-              </Settings.Item>
-              <Settings.Item {...useLink({ href: '/settings' })} icon={Cog}>
-                Settings
-              </Settings.Item>
-            </Settings.Group>
-          </Settings.Items>
-        </Settings>
+        <YStack gap="$4" mt="$2">
+          <Button mx="$4" themeInverse>{/*...useLink({ href: '/profile/edit' }) >*/} 
+            Edit Profile
+          </Button>
+          <Settings>
+            <Settings.Items>
+              <Settings.Group>
+                {/* dummy item - doesn't lead anywhere */}
+                <Settings.Item icon={Box} accentTheme="green">
+                  My Items
+                </Settings.Item>
+                {/* dummy item - doesn't lead anywhere */}
+                <Settings.Item icon={Users} accentTheme="orange">
+                  Refer Your Friends
+                </Settings.Item>
+                {/* dummy item - doesn't lead anywhere */}
+                <Settings.Item icon={Milestone} accentTheme="blue">
+                  Address Info
+                </Settings.Item>
+                {/* dummy item - doesn't lead anywhere */}
+                <Settings.Item icon={ShoppingCart} accentTheme="blue">
+                  Purchase History
+                </Settings.Item>
+                <Settings.Item {...useLink({ href: '/settings' })} icon={Cog}>
+                  Settings
+                </Settings.Item>
+              </Settings.Group>
+            </Settings.Items>
+          </Settings>
+        </YStack>
       </YStack>
     </ScrollView>
   )

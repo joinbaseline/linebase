@@ -6,10 +6,11 @@ import {
   SubmitButton,
   Text,
   ThemeName,
+  XStack,
   YStack,
   isWeb,
 } from '@my/ui'
-import { ChevronLeft } from '@tamagui/lucide-icons'
+import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
 import { useEffect } from 'react'
@@ -19,20 +20,35 @@ import { Link } from 'solito/link'
 import { z } from 'zod'
 import { useAtom } from 'jotai'
 
-import { modeThemeAtom } from 'app/utils/atoms.native'
+import { localEmailAtom, localFirstNameAtom, localLastNameAtom, localPasswordAtom, modeThemeAtom } from 'app/utils/atoms.native'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
+import { useRouter } from 'solito/router'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
 
 const SignUpSchema = z.object({
+  name: formFields.text.min(2).describe('Name // Pete Bloggs'),
   email: formFields.text.email().describe('Email // your@email.acme'),
   password: formFields.text.min(6).describe('Password // Choose a password'),
 })
 
 export const SignUpScreen = () => {
-  const [modeTheme, _] = useAtom(modeThemeAtom)
   const supabase = useSupabase()
+  const [modeTheme, _] = useAtom(modeThemeAtom)
+
+  const [localEmail, setLocalEmail] = useAtom(localEmailAtom)
+  const [localPassword, setLocalPassword] = useAtom(localPasswordAtom);
+  const [localFirstName, setLocalFirstName] = useAtom(localFirstNameAtom);
+  const [localLastName, setLocalLastName] = useAtom(localLastNameAtom);
+
+  const localSignup = (email: string, password: string, first_name?: string, last_name?: string) => {
+    setLocalEmail(email)
+    setLocalPassword(password)
+    setLocalFirstName(first_name || "")
+    setLocalLastName(last_name || "")
+  }
+
   const updateParams = useUpdateParams()
   const { params } = useParams()
 
@@ -44,15 +60,15 @@ export const SignUpScreen = () => {
 
   const form = useForm<z.infer<typeof SignUpSchema>>()
 
-  async function signUpWithEmail({ email, password }: z.infer<typeof SignUpSchema>) {
+  const supabaseSignup = async (email: string, password: string, first_name?: string, last_name?: string) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        // To take user's name other info
+        // To take user's name, other info
         data: {
-          // first_name: firstName, // coming from state
-          // last_name: lastName,
+          first_name,
+          last_name,
         },
       },
     })
@@ -63,10 +79,18 @@ export const SignUpScreen = () => {
         form.setError('email', { type: 'custom', message: errorMessage })
       } else if (errorMessage.includes('password')) {
         form.setError('password', { type: 'custom', message: errorMessage })
+      } else if (errorMessage.includes('name')) {
+        form.setError('name', { type: 'custom', message: errorMessage })
       } else {
         form.setError('password', { type: 'custom', message: errorMessage })
       }
     }
+  }
+
+  async function signUpWithEmail({ email, password, name }: z.infer<typeof SignUpSchema>) {
+    const [ first_name, last_name ] = name.trim().split(" ");
+    localSignup(email, password, first_name, last_name)
+    // await supabaseSignup(email, password, first_name, last_name);
   }
 
   return (
@@ -135,8 +159,13 @@ const SignInLink = () => {
 }
 
 const CheckYourEmail = () => {
+  const router = useRouter()
   const email = useWatch<z.infer<typeof SignUpSchema>>({ name: 'email' })
-  const { reset } = useFormContext()
+  // const { reset } = useFormContext()
+
+  const goToLogin = () => {
+    router.push(`/sign-in?${new URLSearchParams(email ? { email } : undefined).toString()}`)
+  }
 
   return (
     <FormWrapper>
@@ -150,9 +179,11 @@ const CheckYourEmail = () => {
         </YStack>
       </FormWrapper.Body>
       <FormWrapper.Footer>
-        <Button themeInverse icon={ChevronLeft} br="$10" onPress={() => reset()}>
-          Back
-        </Button>
+        <XStack jc="flex-end">
+          <Button iconAfter={ChevronRight} themeInverse br="$10" onPress={goToLogin}>
+            Continue
+          </Button>
+        </XStack>
       </FormWrapper.Footer>
     </FormWrapper>
   )

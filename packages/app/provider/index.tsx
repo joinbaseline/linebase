@@ -24,6 +24,16 @@ export function Provider({
   )
 }
 
+export function LocalProvider({
+  initialSession,
+  children
+}: {
+  initialSession?: Session | null, 
+  children: React.ReactNode
+}) {
+  return <Providers>{children}</Providers>
+}
+
 const compose = (providers: React.FC<{ children: React.ReactNode }>[]) =>
   providers.reduce((Prev, Curr) => ({ children }) => {
     const Provider = Prev ? (
