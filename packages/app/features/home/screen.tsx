@@ -294,9 +294,9 @@ const PostsSection = () => {
             withImages
             w={300}
             $gtMd={{ w: feedCardWidthMd }}
-            title="Why lorem ipsum look bad"
-            description="Maybe it's just me - I'll just write out some dummy text just ignore the text tyvm..."
-            tag="Design"
+            title="Accepting Stability: Letting Go of Hypomania's False Promises"
+            description="Hypomania can feel seductive and powerful, but it often leads to negative..."
+            tag="Acceptance"
             authors={defaultAuthors}
           />
 
@@ -304,9 +304,9 @@ const PostsSection = () => {
             withImages
             w={300}
             $gtMd={{ w: feedCardWidthMd }}
-            title="Why you should use Tamagui"
-            description="Tamagui is the best way to develop performant cross-platform apps with one codebase..."
-            tag="React"
+            title="Dispelling Misconceptions: Insights into Living with Bipolar Disorder"
+            description="A common misconception is that individuals with bipolar disorder are inherently unpredictable..."
+            tag="Stigma"
             authors={defaultAuthors}
           />
 
@@ -314,9 +314,9 @@ const PostsSection = () => {
             withImages
             w={300}
             $gtMd={{ w: feedCardWidthMd }}
-            title="Merits of functional programming"
-            description="What is FP anyways? let's talk about it and learn about it's pros and cons..."
-            tag="Programming"
+            title="Confronting the Beast of Bipolar Irritability: Navigating Life's Roller Coaster"
+            description="Bipolar irritability is a mood state characterized by heightened frustration, anger, and feelings..."
+            tag="Anger"
             authors={defaultAuthors}
           />
 
@@ -324,9 +324,9 @@ const PostsSection = () => {
             withImages
             w={300}
             $gtMd={{ w: feedCardWidthMd }}
-            title="Different React paradigms"
-            description="We're gonna talk about different react paradigm and jargons..."
-            tag="React"
+            title="Bipolar Disorder Diet: Foods That Help and Harm"
+            description="While medication and therapy are critical components of managing bipolar disorder, emerging research..."
+            tag="Nutrition"
             authors={defaultAuthors}
           />
 
@@ -334,18 +334,18 @@ const PostsSection = () => {
             withImages
             w={300}
             $gtMd={{ w: feedCardWidthMd }}
-            title="Another Post"
-            description="Hey this is yet another post I'm putting here for demo purposes..."
-            tag="React"
+            title="Establishing Boundaries: The Key to Healthy Relationships with Bipolar"
+            description="Establishing boundaries is crucial for maintaining healthy relationships, especially when..."
+            tag="Acceptance"
             authors={defaultAuthors}
           />
           <FeedCard
             withImages
             w={300}
             $gtMd={{ w: feedCardWidthMd }}
-            title="And Another Post"
-            description="I'm out of ideas for dummy posts, Sint labore sit magna ea proident aute..."
-            tag="React"
+            title="Natural Remedies for Bipolar Disorder: What Works?"
+            description="From omega-3 fatty acids to herbal supplements, various natural options have shown..."
+            tag="Nutrition"
             authors={defaultAuthors}
           />
         </XStack>

@@ -33,7 +33,7 @@ export const FeedCard = ({
         {withImages && (
           <Image
             source={{
-              uri: `https://picsum.photos/seed/${title}/1000/500`,
+              uri: `https://picsum.photos/seed/${encodeURIComponent(title)}/1000/500`,
             }}
             h={150}
             $sm={{
