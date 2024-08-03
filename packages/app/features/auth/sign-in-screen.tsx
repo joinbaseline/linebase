@@ -1,4 +1,4 @@
-import { H2, LoadingOverlay, Paragraph, SubmitButton, Text, Theme, YStack, isWeb } from '@my/ui'
+import { H2, LoadingOverlay, Paragraph, SubmitButton, Text, Theme, ThemeName, YStack, isWeb } from '@my/ui'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
 import { useUser } from 'app/utils/useUser'
@@ -8,7 +8,10 @@ import { createParam } from 'solito'
 import { Link } from 'solito/link'
 import { useRouter } from 'solito/router'
 import { z } from 'zod'
+import { useAtom } from 'jotai'
 
+import { modeThemeAtom } from 'app/utils/atoms.native'
+import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
@@ -19,6 +22,7 @@ const SignInSchema = z.object({
 })
 
 export const SignInScreen = () => {
+  const [modeTheme, _] = useAtom(modeThemeAtom)
   const supabase = useSupabase()
   const router = useRouter()
   const { params } = useParams()
@@ -54,6 +58,8 @@ export const SignInScreen = () => {
   }
 
   return (
+  <YStack theme={modeTheme as ThemeName} f={1} bg="$color1">
+    <WaveBackground fill={"$red3"} />
     <FormProvider {...form}>
       <SchemaForm
         form={form}
@@ -72,11 +78,9 @@ export const SignInScreen = () => {
         renderAfter={({ submit }) => {
           return (
             <>
-              <Theme inverse>
-                <SubmitButton onPress={() => submit()} br="$10">
-                  Sign In
-                </SubmitButton>
-              </Theme>
+              <SubmitButton themeInverse onPress={() => submit()} br="$10">
+                Sign In
+              </SubmitButton>
               <SignUpLink />
               {isWeb && <SocialLogin />}
             </>
@@ -85,14 +89,16 @@ export const SignInScreen = () => {
       >
         {(fields) => (
           <>
-            <YStack gap="$3" mb="$4">
-              <H2 $sm={{ size: '$8' }}>Welcome Back</H2>
-              <Paragraph theme="alt1">Sign in to your account</Paragraph>
+            <YStack ai="center" jc="center" gap="$2" mb="$4">
+              <H2 als="center" verticalAlign={"center"} size="$7" ff="$body" col="$color12" $sm={{ size: '$8' }}>
+                Sign in
+              </H2>
+              <Paragraph fow="200">Welcome back to Baseline</Paragraph>
             </YStack>
             {Object.values(fields)}
             {!isWeb && (
               <YStack mt="$4">
-                <SocialLogin />
+                {/*<SocialLogin />*/}
               </YStack>
             )}
           </>
@@ -101,6 +107,7 @@ export const SignInScreen = () => {
       {/* this is displayed when the session is being updated - usually when the user is redirected back from an auth provider */}
       {isLoadingSession && <LoadingOverlay />}
     </FormProvider>
+  </YStack>
   )
 }
 
@@ -108,7 +115,7 @@ const SignUpLink = () => {
   const email = useWatch<z.infer<typeof SignInSchema>>({ name: 'email' })
   return (
     <Link href={`/sign-up?${new URLSearchParams(email ? { email } : undefined).toString()}`}>
-      <Paragraph ta="center" theme="alt1">
+      <Paragraph ta="center">
         Don&apos;t have an account? <Text textDecorationLine="underline">Sign up</Text>
       </Paragraph>
     </Link>
@@ -120,7 +127,7 @@ const ForgotPasswordLink = () => {
 
   return (
     <Link href={`/reset-password?${new URLSearchParams(email ? { email } : undefined)}`}>
-      <Paragraph mt="$1" theme="alt2" textDecorationLine="underline">
+      <Paragraph mt="$1" textDecorationLine="underline">
         Forgot your password?
       </Paragraph>
     </Link>

@@ -5,7 +5,7 @@ import {
   Paragraph,
   SubmitButton,
   Text,
-  Theme,
+  ThemeName,
   YStack,
   isWeb,
 } from '@my/ui'
@@ -17,7 +17,10 @@ import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form
 import { createParam } from 'solito'
 import { Link } from 'solito/link'
 import { z } from 'zod'
+import { useAtom } from 'jotai'
 
+import { modeThemeAtom } from 'app/utils/atoms.native'
+import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
@@ -28,6 +31,7 @@ const SignUpSchema = z.object({
 })
 
 export const SignUpScreen = () => {
+  const [modeTheme, _] = useAtom(modeThemeAtom)
   const supabase = useSupabase()
   const updateParams = useUpdateParams()
   const { params } = useParams()
@@ -66,6 +70,8 @@ export const SignUpScreen = () => {
   }
 
   return (
+  <YStack theme={modeTheme as ThemeName} f={1} bg="$color1">
+    <WaveBackground />
     <FormProvider {...form}>
       {form.formState.isSubmitSuccessful ? (
         <CheckYourEmail />
@@ -85,11 +91,9 @@ export const SignUpScreen = () => {
           onSubmit={signUpWithEmail}
           renderAfter={({ submit }) => (
             <>
-              <Theme inverse>
-                <SubmitButton onPress={() => submit()} br="$10">
-                  Sign Up
-                </SubmitButton>
-              </Theme>
+              <SubmitButton themeInverse onPress={() => submit()} br="$10">
+                Sign Up
+              </SubmitButton>
               <SignInLink />
               {isWeb && <SocialLogin />}
             </>
@@ -97,14 +101,16 @@ export const SignUpScreen = () => {
         >
           {(fields) => (
             <>
-              <YStack gap="$3" mb="$4">
-                <H2 $sm={{ size: '$8' }}>Get Started</H2>
-                <Paragraph theme="alt2">Create a new account</Paragraph>
+              <YStack ai="center" jc="center" gap="$2" mb="$4">
+                <H2 als="center" verticalAlign={"center"} size="$7" ff="$body" col="$color12" $sm={{ size: '$8' }}>
+                  Welcome to Baseline
+                </H2>
+                <Paragraph fow="200" >Create your account</Paragraph>
               </YStack>
               {Object.values(fields)}
               {!isWeb && (
                 <YStack mt="$4">
-                  <SocialLogin />
+                  {/*<SocialLogin />*/}
                 </YStack>
               )}
             </>
@@ -112,6 +118,7 @@ export const SignUpScreen = () => {
         </SchemaForm>
       )}
     </FormProvider>
+  </YStack>
   )
 }
 
@@ -120,7 +127,7 @@ const SignInLink = () => {
 
   return (
     <Link href={`/sign-in?${new URLSearchParams(email ? { email } : undefined).toString()}`}>
-      <Paragraph ta="center" theme="alt1" mt="$2">
+      <Paragraph ta="center" mt="$2">
         Already signed up? <Text textDecorationLine="underline">Sign in</Text>
       </Paragraph>
     </Link>

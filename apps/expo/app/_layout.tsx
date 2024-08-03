@@ -33,6 +33,7 @@ export default function HomeLayout() {
   const [themeLoaded, setThemeLoaded] = useState(false);
   const [colorTheme, setColorTheme] = useAtom(colorThemeAtom);
   const [modeTheme, setModeTheme] = useAtom(modeThemeAtom);
+  const [themeName, setThemeName] = useState(modeTheme);
   const [sessionLoadAttempted, setSessionLoadAttempted] = useState(false)
   const [initialSession, setInitialSession] = useState<Session | null>(null)
 
@@ -51,7 +52,9 @@ export default function HomeLayout() {
 
   useEffect(() => {
     loadThemePromise.then(() => {
-      setModeTheme("light") // colorScheme === "dark" ? "dark": "light")
+      if (modeTheme == "") {
+        setModeTheme(colorScheme === "dark" ? "dark": "light")
+      }
       setThemeLoaded(true)
     })
   }, [])
@@ -66,11 +69,10 @@ export default function HomeLayout() {
     return null
   }
 
-  const themeName = [modeTheme, colorTheme].filter(x => x !== "").join("_") as ThemeName;
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <Provider initialSession={initialSession}>
-        <Theme name={themeName}>
+        <Theme name={[modeTheme, colorTheme].filter(x => x !== "").join("_") as ThemeName}>
           <Stack />
         </Theme>
       </Provider>

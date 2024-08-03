@@ -1,3 +1,4 @@
+import { ThemeHeader } from '@my/ui/src/components/ThemeHeader'
 import { StartScreen } from 'app/features/auth/start-screen'
 import { Stack } from 'expo-router'
 
@@ -6,7 +7,7 @@ export default function Screen() {
     <>
       <Stack.Screen
         options={{
-          headerShown: false,
+          headerShown: true, header: () => <ThemeHeader />
         }}
       />
       <StartScreen />

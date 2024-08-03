@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 import Svg, { Path } from "react-native-svg";
-import { View } from "tamagui";
+import { getTokenValue, Token, View, useThemeName } from "tamagui";
 
 type WaveBackgroundProps = {
-  fill?: string;
+  fill?: string | Token;
   flipX?: boolean;
   slideDown?: number;
   viewBoxHeight?: number;
@@ -11,12 +11,17 @@ type WaveBackgroundProps = {
 }
 
 export const WaveBackground = ({
-  fill="#E57474",
+  fill="$red2",
   flipX=false,
   slideDown=180,
   viewBoxHeight=500,
   viewBoxWidth=350,
 }: WaveBackgroundProps) => {
+  const themeName = useThemeName()
+  if (fill.startsWith("$")) {
+    fill =  fill.slice(1) + themeName.charAt(0).toUpperCase() + themeName.slice(1);
+    fill = getTokenValue(`$color.${fill}` as Token);
+  }
   return (
     <View style={styles.backgroundContainer}>
       <Svg width="100%" height="100%" viewBox={`0 ${-slideDown} ${viewBoxWidth} ${viewBoxHeight}`} preserveAspectRatio="xMidYMin slice">
