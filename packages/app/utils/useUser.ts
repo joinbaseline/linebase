@@ -30,7 +30,6 @@ function useProfile() {
 
 export const useUser = () => {
   const { session, isLoading: isLoadingSession } = useSessionContext()
-  const user = session?.user || { id: "testID" }
   // const { data: profile, refetch, isLoading: isLoadingProfile } = useProfile()
 
   const [localEmail, setLocalEmail] = useAtom(localEmailAtom);
@@ -39,6 +38,7 @@ export const useUser = () => {
   const [localAbout, setLocalAbout] = useAtom(localAboutAtom);
   const [localAvatar, setLocalAvatar] = useAtom(localLastNameAtom);
 
+  const user = session?.user || { id: "testID", email: localEmail }
   const profile = {
     email: localEmail,
     firstName: localFirstName,

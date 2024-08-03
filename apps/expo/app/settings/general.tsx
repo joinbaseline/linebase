@@ -1,3 +1,4 @@
+import { AuthHeader } from '@my/ui/src/components/AuthHeader'
 import { GeneralSettingsScreen } from 'app/features/settings/general-screen'
 import { Stack } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -8,6 +9,7 @@ export default function Screen() {
       <Stack.Screen
         options={{
           title: 'General',
+          header: () => <AuthHeader title="General" />
         }}
       />
       <GeneralSettingsScreen />

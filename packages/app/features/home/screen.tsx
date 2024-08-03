@@ -22,11 +22,12 @@ import {
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ArrowRight, LineChart, Pencil, User, Users } from '@tamagui/lucide-icons'
 import { api } from 'app/utils/api'
-import { modeThemeAtom } from 'app/utils/atoms.native'
+import { modeThemeAtom, signedInAtom } from 'app/utils/atoms.native'
 import { useAtom } from 'jotai'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/link'
+import { useRouter } from 'solito/router'
 
 const defaultAuthors = [
   {
@@ -43,6 +44,15 @@ const defaultAuthors = [
 
 export function HomeScreen() {
   const [modeTheme, _] = useAtom(modeThemeAtom);
+  const [signedIn, setSignedIn] = useAtom(signedInAtom)
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!signedIn) {
+      router.replace('/sign-in')
+    }
+  }, [signedIn])
+
   return (
     <YStack theme={modeTheme as ThemeName} bg="$color1" f={1}>
       <WaveBackground flipX />

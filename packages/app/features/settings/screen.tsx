@@ -1,4 +1,4 @@
-import { Paragraph, ScrollView, Separator, Settings, YStack, isWeb, useMedia } from '@my/ui'
+import { Paragraph, ScrollView, Separator, Settings, ThemeName, YStack, isWeb, useMedia } from '@my/ui'
 import { Book, Cog, Info, Lock, LogOut, Mail, Moon, Twitter } from '@tamagui/lucide-icons'
 import { useThemeSetting } from 'app/provider/theme'
 import { redirect } from 'app/utils/redirect'
@@ -8,13 +8,18 @@ import { useLink } from 'solito/link'
 
 import rootPackageJson from '../../../../package.json'
 import packageJson from '../../package.json'
+import { useAtom } from 'jotai'
+import { modeThemeAtom, signedInAtom } from 'app/utils/atoms.native'
+import { useThemeToggle } from '@my/ui/src/components/ThemeToggle'
+import { useRouter } from 'solito/router'
 
 export const SettingsScreen = () => {
+  const [modeTheme, _] = useAtom(modeThemeAtom)
   const media = useMedia()
   const pathname = usePathname()
 
   return (
-    <YStack f={1} gap="$2" jc="space-between">
+    <YStack theme={modeTheme as ThemeName} bg="$color1" f={1} gap="$2" jc="space-between">
       <ScrollView>
         <Settings mt="$6">
           <Settings.Items>
@@ -101,8 +106,8 @@ export const SettingsScreen = () => {
 }
 
 const SettingsThemeAction = () => {
-  const { toggle, current } = useThemeSetting()
-
+  // const { toggle, current } = useThemeSetting()
+  const { toggle, currentLabel: current } = useThemeToggle()
   return (
     <Settings.Item icon={Moon} accentTheme="blue" onPress={toggle} rightLabel={current}>
       Theme
@@ -112,9 +117,16 @@ const SettingsThemeAction = () => {
 
 const SettingsItemLogoutAction = () => {
   const supabase = useSupabase()
+  const [signedIn, setSignedIn] = useAtom(signedInAtom)
+  const router = useRouter()
 
+  const logOut = () => {
+    // supabase.auth.signOut();
+    setSignedIn(false)
+    router.replace('/sign-in')
+  }
   return (
-    <Settings.Item icon={LogOut} accentTheme="red" onPress={() => supabase.auth.signOut()}>
+    <Settings.Item icon={LogOut} accentTheme="red" onPress={logOut}>
       Log Out
     </Settings.Item>
   )

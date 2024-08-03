@@ -8,6 +8,7 @@ import { LogBox, useColorScheme, View } from 'react-native'
 import { useAtom } from 'jotai';
 import { colorThemeAtom, modeThemeAtom, signedInAtom } from '@my/app/utils/atoms.native'
 import { Theme, ThemeName } from '@my/ui'
+import { useRouter } from "solito/router"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -35,6 +36,7 @@ export default function HomeLayout() {
   const [modeTheme, setModeTheme] = useAtom(modeThemeAtom);
   const [themeName, setThemeName] = useState(modeTheme);
   const [signedIn, setSignedIn] = useAtom(signedInAtom);
+  const router = useRouter()
 
   const [sessionLoadAttempted, setSessionLoadAttempted] = useState(false)
   const [initialSession, setInitialSession] = useState<Session | null>(null)
@@ -58,6 +60,9 @@ export default function HomeLayout() {
 
   const checkAuthSession = () => {
     checkLocalAuthSession();
+    if (!signedIn) {
+      setTimeout(() => router.replace('/'), 200)
+    }
   }
 
   useEffect(() => {

@@ -9,7 +9,7 @@ export default function Screen() {
       <Stack.Screen
         options={{
           title: 'Sign Up',
-          header: () => <AuthHeader title={"Sign up"} />
+          header: () => <AuthHeader title={"Sign up"} noBack />
         }}
       />
       <SignUpScreen />

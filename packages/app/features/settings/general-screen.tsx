@@ -24,7 +24,7 @@ export const GeneralSettingsScreen = () => {
                 <SizableText fow="900">Name</SizableText>
               </KVTable.Key>
               <KVTable.Value gap="$4">
-                <SizableText>{profile?.name}</SizableText>
+                <SizableText>{profile?.firstName}</SizableText>
                 <Link href="/profile/edit">
                   <SizableText textDecorationLine="underline">Change</SizableText>
                 </Link>

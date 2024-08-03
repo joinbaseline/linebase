@@ -1,7 +1,10 @@
-import { Button, FormWrapper, H2, Paragraph, SubmitButton, Text, Theme, YStack } from '@my/ui'
+import { Button, FormWrapper, H2, Paragraph, SubmitButton, Text, Theme, ThemeName, YStack } from '@my/ui'
+import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ChevronLeft } from '@tamagui/lucide-icons'
+import { modeThemeAtom } from 'app/utils/atoms.native'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
+import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form'
 import { createParam } from 'solito'
@@ -16,6 +19,7 @@ const ResetPasswordSchema = z.object({
 
 export const ResetPasswordScreen = () => {
   const supabase = useSupabase()
+  const [modeTheme, _] = useAtom(modeThemeAtom)
   const { params } = useParams()
   const updateParams = useUpdateParams()
   useEffect(() => {
@@ -40,6 +44,8 @@ export const ResetPasswordScreen = () => {
   }
 
   return (
+  <YStack theme={modeTheme as ThemeName} f={1} bg="$color1">
+    <WaveBackground fill={"$red3"} flipX />
     <FormProvider {...form}>
       {form.formState.isSubmitSuccessful ? (
         <CheckYourEmail />
@@ -78,6 +84,7 @@ export const ResetPasswordScreen = () => {
         </SchemaForm>
       )}
     </FormProvider>
+  </YStack>
   )
 }
 
@@ -109,7 +116,7 @@ const SignInLink = () => {
 
   return (
     <Link href={`/sign-in?${new URLSearchParams(email ? { email } : undefined)}`}>
-      <Paragraph ta="center" theme="alt1">
+      <Paragraph ta="center">
         Done resetting? <Text textDecorationLine="underline">Sign in</Text>
       </Paragraph>
     </Link>
