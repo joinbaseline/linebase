@@ -80,7 +80,7 @@ export const SignInScreen = () => {
 
   return (
   <YStack theme={modeTheme as ThemeName} f={1} bg="$color1">
-    <WaveBackground fill={"$red3"} />
+    <WaveBackground fill={"$red3"} flipX />
     <FormProvider {...form}>
       <SchemaForm
         form={form}
