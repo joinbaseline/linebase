@@ -23,15 +23,15 @@ const defineConfig = (): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: 'com.bipolar.baseline.mobile',
-    infoPlist: {
-      usesNonExemptEncryption: false,
-      NSHealthShareUsageDescription: 'This app would like access to your health activity for analysis',
-    },
-    entitlements: {
-      'com.apple.developer.healthkit': true,
-      'com.apple.developer.healthkit.access': true,
-      'com.apple.developer.healthkit.background-delivery': true,
-    },
+    // infoPlist: {
+    //   usesNonExemptEncryption: false,
+    //   NSHealthShareUsageDescription: 'This app would like access to your health activity for analysis',
+    // },
+    // entitlements: {
+    //   'com.apple.developer.healthkit': true,
+    //   'com.apple.developer.healthkit.access': true,
+    //   'com.apple.developer.healthkit.background-delivery': true,
+    // },
   },
   android: {
     softwareKeyboardLayoutMode: 'pan',
@@ -67,9 +67,9 @@ const defineConfig = (): ExpoConfig => ({
           enableProguardInReleaseBuilds: true,
           enableShrinkResourcesInReleaseBuilds: true,
         },
-        ios: {
-          deploymentTarget: '15.0',
-        },
+        // ios: {
+        //   deploymentTarget: '15.0',
+        // },
       },
     ],
     'expo-apple-authentication',
