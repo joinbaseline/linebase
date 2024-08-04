@@ -3,12 +3,10 @@ import {
   XStack,
   YStack,
   Button,
-  H1,
   H2,
-  ThemeName,
   View,
   Paragraph,
-  SizableText,
+  Text,
   Theme,
 } from '@my/ui'
 import { ChevronRight } from '@tamagui/lucide-icons'
@@ -25,20 +23,19 @@ const OptionButton = ({ index, label, selected, onPress }: {
   onPress: () => void
 }) => {
   return (
-  <Theme inverse={selected.includes(index)}>
-    <YStack f={1} ai="center" p="$2" w="100%" style={{ aspectRatio: "1.6", flexBasis: '40%' }}>
-      <Button
-        f={1}
-        bg="$color3"
-        onPress={onPress}
-        br="$10"
-        w="80%"
-        hoverStyle={{ bg: '$color5' }}
-      >
-        <SizableText fow="300" size="$3" col="$color12" ta="center">{label}</SizableText>
-      </Button>
-    </YStack>
-  </Theme>
+  <YStack f={1} ai="center" p="$2" w="100%" style={{ aspectRatio: "1.6", flexBasis: '40%' }}>
+    <Button
+      f={1}
+      bg={selected.includes(index) ? "$color12" : "$color3"}
+      onPress={onPress}
+      br="$10"
+      w="80%"
+      hoverStyle={{ bg: selected.includes(index) ? '$color10' : '$color5' }}
+      pressStyle={{ bg: selected.includes(index) ? '$color10' : '$color5' }}
+    >
+      <Text fow="300" col={selected.includes(index) ? "$color2" : "$color12"} ta="center">{label}</Text>
+    </Button>
+  </YStack>
 )};
 
 
@@ -139,5 +136,5 @@ const Onboarding = ({ handleContinue=() => { return } }: {handleContinue?: () =>
 
 export const OnboardingScreen = () => {
   const router = useRouter()
-  return <Onboarding handleContinue={() => router.push('/sign-up')} />
+  return <Onboarding handleContinue={() => router.push('/chat-onboarding')} />
 }
