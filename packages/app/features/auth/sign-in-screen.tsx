@@ -10,7 +10,7 @@ import { useRouter } from 'solito/router'
 import { z } from 'zod'
 import { useAtom } from 'jotai'
 
-import { localEmailAtom, localPasswordAtom, modeThemeAtom, signedInAtom } from 'app/utils/atoms.native'
+import { localEmailAtom, localPasswordAtom, signedInAtom } from 'app/utils/atoms.native'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 import { useThemeSetting } from 'app/provider/theme'

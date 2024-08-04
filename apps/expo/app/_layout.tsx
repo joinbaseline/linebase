@@ -1,15 +1,13 @@
 import { Session } from '@supabase/supabase-js'
-import { LocalProvider, Provider, loadThemePromise } from 'app/provider'
+import { LocalProvider, loadThemePromise } from 'app/provider'
 import { supabase } from 'app/utils/supabase/client.native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
-import { LogBox, useColorScheme, View } from 'react-native'
+import { LogBox, View } from 'react-native'
 import { useAtom } from 'jotai';
-import { colorThemeAtom, modeThemeAtom, signedInAtom } from '@my/app/utils/atoms.native'
-import { Theme, ThemeName } from '@my/ui'
+import { signedInAtom } from '@my/app/utils/atoms.native'
 import { useRouter } from "solito/router"
-import { useThemeSetting } from '@my/app/provider/theme'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -31,9 +29,7 @@ export default function HomeLayout() {
     EBGaramondExtraBoldItalic: require('@tamagui-google-fonts/eb-garamond/fonts/static/EBGaramond-ExtraBoldItalic.ttf'),
   })
 
-  const { current } = useThemeSetting()
   const [themeLoaded, setThemeLoaded] = useState(false);
-  const [colorTheme, setColorTheme] = useAtom(colorThemeAtom);
   const [signedIn, setSignedIn] = useAtom(signedInAtom);
   const router = useRouter()
 
@@ -88,9 +84,7 @@ export default function HomeLayout() {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       {/* When Supabase on, use actual Provider */}
       <LocalProvider initialSession={initialSession}>
-        <Theme name={[current, colorTheme].filter(x => x !== "").join("_") as ThemeName}>
-          <Stack />
-        </Theme>
+        <Stack />
       </LocalProvider>
     </View>
   )
