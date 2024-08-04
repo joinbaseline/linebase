@@ -35,10 +35,10 @@ export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
         {/* This text should be  */}
         <YStack f={1/2} p="$5" jc="center" ai="center">
           <YStack ai='flex-start' mr="$7">
-            <H1 mb={-8} size="$14" col="$color12">
+            <H1 mb={-8} maxFontSizeMultiplier={1} size="$13" col="$color12">
               Baseline
             </H1>
-            <H2 maw="80%" mx="$2" size="$7" ff="$body" col="$color12">Live better with bipolar</H2>
+            <H2 maw="80%" maxFontSizeMultiplier={1.5} mx="$2" size="$7" ff="$body" col="$color12">Live better with bipolar</H2>
           </YStack>
         </YStack>
         <YStack f={1} jc="flex-end">
