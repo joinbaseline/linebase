@@ -41,6 +41,7 @@
     "setup": "yarn create tamagui --template takeout-starter --info",
     "generate": "turbo gen",
     "gen": "yarn generate",
+    "install:font": "yarn tamagui add font",
     "add:font": "yarn workspace tamagui-fonts-and-icons run add:font",
     "add:icon": "yarn workspace tamagui-fonts-and-icons run add:icon"
   },

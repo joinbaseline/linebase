@@ -9,6 +9,7 @@ import { useAtom } from 'jotai';
 import { colorThemeAtom, modeThemeAtom, signedInAtom } from '@my/app/utils/atoms.native'
 import { Theme, ThemeName } from '@my/ui'
 import { useRouter } from "solito/router"
+import { useThemeSetting } from '@my/app/provider/theme'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -30,11 +31,9 @@ export default function HomeLayout() {
     EBGaramondExtraBoldItalic: require('@tamagui-google-fonts/eb-garamond/fonts/static/EBGaramond-ExtraBoldItalic.ttf'),
   })
 
-  const colorScheme = useColorScheme();
+  const { current } = useThemeSetting()
   const [themeLoaded, setThemeLoaded] = useState(false);
   const [colorTheme, setColorTheme] = useAtom(colorThemeAtom);
-  const [modeTheme, setModeTheme] = useAtom(modeThemeAtom);
-  const [themeName, setThemeName] = useState(modeTheme);
   const [signedIn, setSignedIn] = useAtom(signedInAtom);
   const router = useRouter()
 
@@ -71,9 +70,6 @@ export default function HomeLayout() {
 
   useEffect(() => {
     loadThemePromise.then(() => {
-      if (modeTheme == "") {
-        setModeTheme(colorScheme === "dark" ? "dark": "light")
-      }
       setThemeLoaded(true)
     })
   }, [])
@@ -92,7 +88,7 @@ export default function HomeLayout() {
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       {/* When Supabase on, use actual Provider */}
       <LocalProvider initialSession={initialSession}>
-        <Theme name={[modeTheme, colorTheme].filter(x => x !== "").join("_") as ThemeName}>
+        <Theme name={[current, colorTheme].filter(x => x !== "").join("_") as ThemeName}>
           <Stack />
         </Theme>
       </LocalProvider>

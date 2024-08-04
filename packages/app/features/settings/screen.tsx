@@ -9,12 +9,11 @@ import { useLink } from 'solito/link'
 import rootPackageJson from '../../../../package.json'
 import packageJson from '../../package.json'
 import { useAtom } from 'jotai'
-import { modeThemeAtom, signedInAtom } from 'app/utils/atoms.native'
-import { useThemeToggle } from '@my/ui/src/components/ThemeToggle'
+import { signedInAtom } from 'app/utils/atoms.native'
 import { useRouter } from 'solito/router'
 
 export const SettingsScreen = () => {
-  const [modeTheme, _] = useAtom(modeThemeAtom)
+  const {current: modeTheme} = useThemeSetting()
   const media = useMedia()
   const pathname = usePathname()
 
@@ -106,8 +105,7 @@ export const SettingsScreen = () => {
 }
 
 const SettingsThemeAction = () => {
-  // const { toggle, current } = useThemeSetting()
-  const { toggle, currentLabel: current } = useThemeToggle()
+  const { toggle, current } = useThemeSetting()
   return (
     <Settings.Item icon={Moon} accentTheme="blue" onPress={toggle} rightLabel={current}>
       Theme

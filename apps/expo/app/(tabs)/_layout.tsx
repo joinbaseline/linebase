@@ -1,19 +1,18 @@
-import { modeThemeAtom } from '@my/app/utils/atoms.native'
 import { Avatar, ColorTokens, YStack, getTokenValue, validToken } from '@my/ui'
 import { AuthHeader } from '@my/ui/src/components/AuthHeader'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
-import { Home, Globe, MessagesSquare, ActivitySquare, User } from '@tamagui/lucide-icons'
+import { Home, MessagesSquare, ActivitySquare, User } from '@tamagui/lucide-icons'
 import { useUser } from 'app/utils/useUser'
 import { Stack, Tabs } from 'expo-router'
 import { SolitoImage } from 'solito/image'
-import { useAtom } from "jotai"
-import { SCREEN_HEIGHT } from '@my/app/utils/Window.native'
+import { useThemeSetting } from '@my/app/provider/theme'
 
 const STROKE_WIDTH = 1;
 
 export default function Layout() {
-  const [ modeTheme, _ ] = useAtom(modeThemeAtom)
+  const { current: modeTheme} = useThemeSetting()
+
   const getTintColor = () => {
     return "white"
   }

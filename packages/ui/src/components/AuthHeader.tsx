@@ -4,12 +4,11 @@ import { SCREEN_HEIGHT } from '@my/app/utils/Window.native';
 import { ThemeToggle } from './ThemeToggle';
 import { TouchableOpacity } from 'react-native';
 import { useRouter } from "solito/router";
-import { useAtom } from "jotai";
-import { modeThemeAtom } from '@my/app/utils/atoms.native';
+import { useThemeSetting } from '@my/app/provider/theme';
 
 export const AuthHeader = ({title, noBack=false}: {title: string, noBack?: boolean}) => {
   const router = useRouter()
-  const [modeTheme, _] = useAtom(modeThemeAtom)
+  const { current: modeTheme } = useThemeSetting()
   return (
     <XStack zi={1} theme={modeTheme as ThemeName} bg={"$color1"} px={"$4"} h={SCREEN_HEIGHT/10} ai="center" jc="space-between">
       <XStack f={1} jc="flex-start">

@@ -13,6 +13,7 @@ import { useAtom } from 'jotai'
 import { localEmailAtom, localPasswordAtom, modeThemeAtom, signedInAtom } from 'app/utils/atoms.native'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
+import { useThemeSetting } from 'app/provider/theme'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
 
@@ -22,7 +23,7 @@ const SignInSchema = z.object({
 })
 
 export const SignInScreen = () => {
-  const [modeTheme, _] = useAtom(modeThemeAtom)
+  const { current: modeTheme } = useThemeSetting()
   const supabase = useSupabase()
   const router = useRouter()
 

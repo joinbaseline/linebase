@@ -1,23 +1,21 @@
 import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets'
 import {
-  Theme,
   XStack,
   YStack,
   Button,
   H1,
   H2,
   ThemeName,
-  View
+  View,
 } from '@my/ui'
 import { ChevronRight } from '@tamagui/lucide-icons'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { useRouter } from 'solito/router'
-import { useAtom } from 'jotai'
-import { modeThemeAtom } from 'app/utils/atoms.native'
+import { useThemeSetting } from 'app/provider/theme'
 
 export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
   const safeAreaInsets = useSafeAreaInsets()
-  const [modeTheme, _] = useAtom(modeThemeAtom)
+  const { current: modeTheme } = useThemeSetting()
 
   return (
   <>

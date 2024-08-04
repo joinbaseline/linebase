@@ -1,10 +1,9 @@
 import { Button, FormWrapper, H2, Paragraph, SubmitButton, Text, Theme, ThemeName, YStack } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ChevronLeft } from '@tamagui/lucide-icons'
-import { modeThemeAtom } from 'app/utils/atoms.native'
+import { useThemeSetting } from 'app/provider/theme'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
-import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form'
 import { createParam } from 'solito'
@@ -19,7 +18,7 @@ const ResetPasswordSchema = z.object({
 
 export const ResetPasswordScreen = () => {
   const supabase = useSupabase()
-  const [modeTheme, _] = useAtom(modeThemeAtom)
+  const { current: modeTheme } = useThemeSetting()
   const { params } = useParams()
   const updateParams = useUpdateParams()
   useEffect(() => {

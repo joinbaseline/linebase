@@ -21,8 +21,9 @@ import {
 } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ArrowRight, LineChart, Pencil, User, Users } from '@tamagui/lucide-icons'
+import { useThemeSetting } from 'app/provider/theme'
 import { api } from 'app/utils/api'
-import { modeThemeAtom, signedInAtom } from 'app/utils/atoms.native'
+import { signedInAtom } from 'app/utils/atoms.native'
 import { useAtom } from 'jotai'
 import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
@@ -43,7 +44,7 @@ const defaultAuthors = [
 ]
 
 export function HomeScreen() {
-  const [modeTheme, _] = useAtom(modeThemeAtom);
+  const { current: modeTheme } = useThemeSetting()
   const [signedIn, setSignedIn] = useAtom(signedInAtom)
   const router = useRouter();
 

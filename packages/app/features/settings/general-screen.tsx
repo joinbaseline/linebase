@@ -1,11 +1,14 @@
-import { FormWrapper, H2, H4, KVTable, Separator, SizableText, YStack, isWeb, styled } from '@my/ui'
+import { FormWrapper, H2, H4, KVTable, Separator, SizableText, ThemeName, YStack, isWeb, styled } from '@my/ui'
+import { useThemeSetting } from 'app/provider/theme'
 import { useUser } from 'app/utils/useUser'
 import { Link } from 'solito/link'
 
 export const GeneralSettingsScreen = () => {
   const { user, profile } = useUser()
+  const {current: modeTheme} = useThemeSetting()
 
   return (
+  <YStack f={1} theme={modeTheme as ThemeName} bg="$color1">
     <FormWrapper>
       {isWeb && (
         <YStack px="$4" py="$4" pb="$2">
@@ -63,6 +66,7 @@ export const GeneralSettingsScreen = () => {
         </Section>
       </FormWrapper.Body>
     </FormWrapper>
+  </YStack>
   )
 }
 

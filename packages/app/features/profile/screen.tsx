@@ -13,15 +13,14 @@ import {
 } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { Box, Cog, Milestone, ShoppingCart, Users, CircleUser } from '@tamagui/lucide-icons'
-import { modeThemeAtom } from 'app/utils/atoms.native'
+import { useThemeSetting } from 'app/provider/theme'
 import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets'
 import { useUser } from 'app/utils/useUser'
-import { useAtom } from 'jotai'
 import { SolitoImage } from 'solito/image'
 import { Link, useLink } from 'solito/link'
 
 export function ProfileScreen() {
-  const [modeTheme, _] = useAtom(modeThemeAtom)
+  const {current: modeTheme} = useThemeSetting()
   const { profile, avatarUrl } = useUser()
   const name = profile?.firstName
   const about = profile?.about

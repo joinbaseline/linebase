@@ -24,6 +24,7 @@ import { localEmailAtom, localFirstNameAtom, localLastNameAtom, localPasswordAto
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 import { useRouter } from 'solito/router'
+import { useThemeSetting } from 'app/provider/theme'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
 
@@ -35,7 +36,7 @@ const SignUpSchema = z.object({
 
 export const SignUpScreen = () => {
   const supabase = useSupabase()
-  const [modeTheme, _] = useAtom(modeThemeAtom)
+  const { current: modeTheme } = useThemeSetting()
 
   const [localEmail, setLocalEmail] = useAtom(localEmailAtom)
   const [localPassword, setLocalPassword] = useAtom(localPasswordAtom);
