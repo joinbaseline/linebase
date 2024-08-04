@@ -109,7 +109,7 @@ const Onboarding = ({ handleContinue=() => { return } }: {handleContinue?: () =>
         </YStack>
         <OptionsList options={options} selected={selected} setSelected={setSelected} />
         <YStack f={1/3} jc="flex-end">
-          <XStack jc="space-between" mb="$6" ai="center" p="$5" gap="$5">
+          <XStack jc="space-between" mb="$4" ai="center" p="$5" gap="$5">
             <Button
               elevate
               pressStyle={{

@@ -42,7 +42,7 @@ export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
           </YStack>
         </YStack>
         <YStack f={1} jc="flex-end">
-          <XStack jc="space-between" mb="$6" ai="center" p="$5" gap="$5">
+          <XStack jc="space-between" mb="$4" ai="center" p="$5" gap="$5">
             <Button
               elevate
               pressStyle={{

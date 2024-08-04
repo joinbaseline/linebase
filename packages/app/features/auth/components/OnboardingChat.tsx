@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { ScrollView, YStack, XStack, Paragraph, Button, Input, getTokenValue, Theme, Card, useTheme } from 'tamagui';
+import { KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { styled, ScrollView, YStack, XStack, Paragraph, Button, Input, getTokenValue, Theme, Card, useTheme } from 'tamagui';
 import { ArrowUpFromDot, Undo } from '@tamagui/lucide-icons';
 import { useRouter } from 'solito/router';
 
@@ -27,7 +27,7 @@ export const ChatScreen = () => {
   }  
 
   const handleSend = (msg?: string) => {
-    const newText = inputText.trim() || msg?.trim();
+    const newText = msg?.trim() || inputText.trim();
     if (newText) {
       setMessages([...messages, { id: messages.length + 1, text: newText, sender: 'user' }]);
       setInputText('');
@@ -73,7 +73,7 @@ export const ChatScreen = () => {
   return (
     <YStack jc="flex-end" f={1}>
       <YStack f={1} jc="flex-end">
-        <ScrollView contentContainerStyle={{ f: 1, jc: "flex-end" }}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ f: 1, jc: "flex-end" }}>
           {messages.map((message) => (
             <MessageBubble key={message.id} sender={message.sender}>
               <MessageText sender={message.sender}>{message.text}</MessageText>
@@ -81,18 +81,18 @@ export const ChatScreen = () => {
           ))}
         </ScrollView>
       </YStack>
-      <YStack f={1/4}>
+      <YStack f={3/8} jc="center">
         <XStack f={1}>
           <ReplyPrompts handlePress={handleSend} currentQuestionID={currentQuestionID} questionsAndReplies={questionsAndReplies} />
         </XStack>
-        <XStack gap="$2" mr={10} jc="center" ai='center'>
+        <XStack f={1} jc="center" ai='center'>
           {!questionsAndReplies.map(x => x.id).includes(currentQuestionID) && messages[messages.length - 1]?.sender === 'user' ? (
             <XStack f={1} jc="flex-end" gap="$2">
               <UndoButton handleUndo={handleUndo} /> 
               <ContinueButton handleContinue={handleContinue} />
             </XStack>
           ) : (
-          <>
+          <XStack gap='$2'>
             <Input
               f={1}
               bw={0}
@@ -109,7 +109,7 @@ export const ChatScreen = () => {
             />
             <UndoButton handleUndo={handleUndo} /> 
             <SendButton handleSend={() => handleSend()} />
-          </>
+          </XStack>
           )}
         </XStack>
       </YStack>
@@ -225,6 +225,7 @@ const ReplyPrompts = ({currentQuestionID, questionsAndReplies, handlePress}:{
   const [replies, setReplies] = useState<string[]>([])
 
   useEffect(() => {
+    const wasUndo = currentQuestionID < prevQuestionID;
     if (currentQuestionID !== prevQuestionID) {
       setReplies([])
     }
@@ -233,12 +234,12 @@ const ReplyPrompts = ({currentQuestionID, questionsAndReplies, handlePress}:{
     if (currentQuestion) {
       setTimeout(() => {
         setReplies(currentQuestion.replies)
-      }, 1500)
+      }, wasUndo ? 700 : 1500)
     }
   }, [currentQuestionID])
 
   return replies ? (
-    <ScrollView h={80} f={1} horizontal>
+    <ScrollView showsHorizontalScrollIndicator={false} horizontal>
       {replies.map((reply, index) => (
         <ReplyPromptBubble onPress={() => handlePress(reply)} key={index}>
           <Paragraph>{reply}</Paragraph>
@@ -267,10 +268,9 @@ const ReplyPromptBubble = ({ children, onPress }) => {
       miw="$5"
       ai='center'
       bg="$color4"
-      als='flex-start'
+      als='center'
       p={10}
-      mx={5}
-      my={10}
+      ml={5}
       maw="75%"
     >
       {children}
@@ -278,7 +278,7 @@ const ReplyPromptBubble = ({ children, onPress }) => {
 )}
 
 const MessageText = ({ sender, children }) => (
-  <Paragraph fow="200" col={sender === 'user' ? "$color12" : "$color4"}>
+  <Paragraph maxFontSizeMultiplier={1.25} fow="200" col={sender === 'user' ? "$color12" : "$color4"}>
     {children}
   </Paragraph>
 );
