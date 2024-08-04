@@ -9,7 +9,7 @@ export default function Screen() {
       <Stack.Screen
         options={{
           title: 'Sign In',
-          header: () => <AuthHeader title="Sign in" noBack />
+          header: () => <AuthHeader title="Sign in" backHref="/onboarding" />
         }}
       />
       <SignInScreen />

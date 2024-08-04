@@ -21,7 +21,7 @@ export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
   <>
     <View
       f={1}
-      bg="$color2"
+      bg="$color1"
       ov="hidden"
       theme={modeTheme as ThemeName}
       pb={safeAreaInsets.bottom}
@@ -42,7 +42,7 @@ export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
           </YStack>
         </YStack>
         <YStack f={1} jc="flex-end">
-          <XStack jc="space-between" mb="$8" ai="center" p="$5" gap="$5">
+          <XStack jc="space-between" mb="$6" ai="center" p="$5" gap="$5">
             <Button
               elevate
               pressStyle={{
@@ -69,5 +69,5 @@ export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
 
 export const StartScreen = () => {
   const router = useRouter()
-  return <Start handleContinue={() => router.push('/sign-up')} />
+  return <Start handleContinue={() => router.push('/onboarding')} />
 }

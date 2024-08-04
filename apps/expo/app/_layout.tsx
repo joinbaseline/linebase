@@ -16,6 +16,7 @@ LogBox.ignoreLogs(['Cannot update a component', 'You are setting the style'])
 export default function HomeLayout() {
   const [fontLoaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
+    InterSemiBold: require('@tamagui/font-inter/otf/Inter-SemiBold.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
     EBGaramond: require('@tamagui-google-fonts/eb-garamond/fonts/static/EBGaramond-Regular.ttf'),
     EBGaramondMedium: require('@tamagui-google-fonts/eb-garamond/fonts/static/EBGaramond-Medium.ttf'),
@@ -30,9 +31,6 @@ export default function HomeLayout() {
   })
 
   const [themeLoaded, setThemeLoaded] = useState(false);
-  const [signedIn, setSignedIn] = useAtom(signedInAtom);
-  const router = useRouter()
-
   const [sessionLoadAttempted, setSessionLoadAttempted] = useState(false)
   const [initialSession, setInitialSession] = useState<Session | null>(null)
 
@@ -55,9 +53,6 @@ export default function HomeLayout() {
 
   const checkAuthSession = () => {
     checkLocalAuthSession();
-    if (!signedIn) {
-      setTimeout(() => router.replace('/'), 200)
-    }
   }
 
   useEffect(() => {

@@ -50,7 +50,7 @@ export function HomeScreen() {
 
   useEffect(() => {
     if (!signedIn) {
-      router.replace('/sign-in')
+      setTimeout(() => router.replace('/start'), 200)
     }
   }, [signedIn])
 

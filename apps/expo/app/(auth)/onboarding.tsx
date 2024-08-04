@@ -1,3 +1,4 @@
+import { AuthHeader } from '@my/ui/src/components/AuthHeader'
 import { OnboardingScreen } from 'app/features/auth/onboarding-screen'
 import { Stack } from 'expo-router'
 
@@ -6,7 +7,8 @@ export default function Screen() {
     <>
       <Stack.Screen
         options={{
-          headerShown: false,
+          headerShown: true,
+          header: () => <AuthHeader />
         }}
       />
       <OnboardingScreen />

@@ -49,7 +49,8 @@ export const headingFont = createEbGaramondFont(
 export const bodyFont = createInterFont(
   {
     face: {
-      300: { normal: 'InterBold' },
+      300: { normal: 'InterSemiBold' },
+      400: { normal: 'InterBold' },
     },
   },
   {
