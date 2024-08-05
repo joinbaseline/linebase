@@ -6,7 +6,7 @@ const defineConfig = (): ExpoConfig => ({
   slug: 'baseline',
   jsEngine: 'hermes',
   scheme: 'baseline',
-  version: '1.0.7',
+  version: '1.0.8',
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'automatic',
@@ -23,15 +23,15 @@ const defineConfig = (): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: 'com.bipolar.baseline.mobile',
-    // infoPlist: {
-    //   usesNonExemptEncryption: false,
-    //   NSHealthShareUsageDescription: 'This app would like access to your health activity for analysis',
-    // },
-    // entitlements: {
-    //   'com.apple.developer.healthkit': true,
-    //   'com.apple.developer.healthkit.access': true,
-    //   'com.apple.developer.healthkit.background-delivery': true,
-    // },
+    infoPlist: {
+      NSHealthShareUsageDescription:
+        'This app would like access to your health activity for analysis',
+    },
+    entitlements: {
+      'com.apple.developer.healthkit': true,
+      'com.apple.developer.healthkit.access': [],
+      'com.apple.developer.healthkit.background-delivery': true,
+    },
   },
   android: {
     softwareKeyboardLayoutMode: 'pan',
