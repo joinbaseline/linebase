@@ -3,8 +3,10 @@ import { KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 import { styled, ScrollView, YStack, XStack, Paragraph, Button, Input, getTokenValue, Theme, Card, useTheme } from 'tamagui';
 import { ArrowUpFromDot, Undo } from '@tamagui/lucide-icons';
 import { useRouter } from 'solito/router';
+import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets';
 
 export const ChatScreen = () => {
+  const safeAreaInsets = useSafeAreaInsets()
   const router = useRouter()
   const [messages, setMessages] = useState([
     { id: 1, text: 'How are you feeling today?', sender: 'system' },
@@ -71,49 +73,55 @@ export const ChatScreen = () => {
   };
 
   return (
-    <YStack jc="flex-end" f={1}>
-      <YStack f={1} jc="flex-end">
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ f: 1, jc: "flex-end" }}>
-          {messages.map((message) => (
-            <MessageBubble key={message.id} sender={message.sender}>
-              <MessageText sender={message.sender}>{message.text}</MessageText>
-            </MessageBubble>
-          ))}
-        </ScrollView>
-      </YStack>
-      <YStack f={3/8} jc="center">
-        <XStack f={1}>
-          <ReplyPrompts handlePress={handleSend} currentQuestionID={currentQuestionID} questionsAndReplies={questionsAndReplies} />
-        </XStack>
-        <XStack f={1} jc="center" ai='center'>
-          {!questionsAndReplies.map(x => x.id).includes(currentQuestionID) && messages[messages.length - 1]?.sender === 'user' ? (
-            <XStack f={1} jc="flex-end" gap="$2">
-              <UndoButton handleUndo={handleUndo} /> 
-              <ContinueButton handleContinue={handleContinue} />
-            </XStack>
-          ) : (
-          <XStack gap='$2'>
-            <Input
-              f={1}
-              bw={0}
-              ml={5}
-              size="$3.5"
-              br={40}
-              placeholderTextColor={"$color12"}
-              col={"$color12"}
-              // @ts-ignore
-              bg={`${getTokenValue("$color.white2")}60`}
-              value={inputText}
-              onChangeText={setInputText}
-              placeholder="Message"
-            />
+  <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={'padding' /*Platform.OS === 'ios' ? 'padding' : 'height'*/}
+    keyboardVerticalOffset={120}
+  >
+    <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ fg: 1, jc: 'flex-end' }}
+      showsVerticalScrollIndicator={false}
+    >
+      {messages.map((message) => (
+        <MessageBubble key={message.id} sender={message.sender}>
+          <MessageText sender={message.sender}>{message.text}</MessageText>
+        </MessageBubble>
+      ))}
+    </ScrollView>
+    <YStack jc="center" gap="$2" my="$2">
+      <XStack>
+        <ReplyPrompts handlePress={handleSend} currentQuestionID={currentQuestionID} questionsAndReplies={questionsAndReplies} />
+      </XStack>
+      <XStack jc="center" ai='center'>
+        {!questionsAndReplies.map(x => x.id).includes(currentQuestionID) && messages[messages.length - 1]?.sender === 'user' ? (
+          <XStack f={1} jc="flex-end" gap="$2">
             <UndoButton handleUndo={handleUndo} /> 
-            <SendButton handleSend={() => handleSend()} />
+            <ContinueButton handleContinue={handleContinue} />
           </XStack>
-          )}
+        ) : (
+        <XStack gap='$2' py="$2">
+          <Input
+            f={1}
+            bw={0}
+            ml={5}
+            size="$3.5"
+            br={40}
+            placeholderTextColor={"$color12"}
+            col={"$color12"}
+            // @ts-ignore
+            bg={`${getTokenValue("$color.white2")}60`}
+            value={inputText}
+            onChangeText={setInputText}
+            placeholder="Message"
+          />
+          <UndoButton handleUndo={handleUndo} /> 
+          <SendButton handleSend={() => handleSend()} />
         </XStack>
-      </YStack>
+        )}
+      </XStack>
     </YStack>
+  </KeyboardAvoidingView>
   );
 };
 

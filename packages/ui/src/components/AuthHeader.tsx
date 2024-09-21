@@ -19,7 +19,7 @@ export const AuthHeader = ({title, backHref, noBack=false}: {title?: string, noB
   }
 
   return (
-    <XStack zi={1} theme={modeTheme as ThemeName} bg={"$color1"} px={"$4"} h={SCREEN_HEIGHT/10} ai="center" jc="space-between">
+    <XStack zi={1} theme={modeTheme as ThemeName} bg={"$color1"} px={"$4"} h={SCREEN_HEIGHT/10} ai="flex-end" jc="space-between">
       <XStack f={1} jc="flex-start">
         {!noBack &&
           <TouchableOpacity onPress={onBack}>

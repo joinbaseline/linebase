@@ -90,6 +90,7 @@ const Onboarding = ({ handleContinue=() => { return } }: {handleContinue?: () =>
       f={1}
       bg="$color1"
       ov="hidden"
+      pt={safeAreaInsets.top}
       pb={safeAreaInsets.bottom}
       pr={safeAreaInsets.right}
       pl={safeAreaInsets.left}
