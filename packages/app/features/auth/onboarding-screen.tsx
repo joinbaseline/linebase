@@ -51,7 +51,6 @@ const OptionsList = ({options, selected, setSelected}: {
         ? prevSelected.filter((i) => i !== index)
         : [...prevSelected, index]
     );
-    console.log(`Box ${index + 1} selected`);
   };
   return (
     <XStack f={1} fw="wrap">

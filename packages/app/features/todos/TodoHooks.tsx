@@ -31,15 +31,12 @@ export const onCheck = (type: string, value: string | number | boolean) => {
 
 export const useCheckIfDone = (type: string) => {
   const [entries, _] = useAtom($genericEntriesAtom);
-  
   if (type === 'mood') {
     return useLoggedMoodToday();
   }
-
   const today = moment().startOf('day');
   const todaysEntries = entries.filter(entry => moment(entry.timestamp).startOf('day').isSame(today));
   const result = todaysEntries.some(entry => entry.type === type);
-  console.log(today, todaysEntries, result);
   return result;
 };
 

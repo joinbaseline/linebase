@@ -34,7 +34,6 @@ const LogPortal: React.FC<{
   onSubmitPress: (event: GestureResponderEvent) => void;
 }> = ({ time, setTime, mood, visible, setVisible, saving, success, onSubmitPress }) => {
   const handleClose = () => {
-    console.log("close portal, resetting selected value to 0")
     // $state.logmood.entry.set(0);
     setVisible(false);
     Keyboard.dismiss();
