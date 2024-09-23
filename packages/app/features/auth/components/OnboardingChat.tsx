@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { KeyboardAvoidingView, Platform, TouchableOpacity, ScrollView } from 'react-native';
-import { styled, YStack, XStack, Paragraph, Button, Input, getTokenValue, Theme, Card, useTheme } from 'tamagui';
+import { KeyboardAvoidingView, TouchableOpacity, ScrollView } from 'react-native';
+import { YStack, XStack, Paragraph, Button, Input, getTokenValue, Card, useTheme } from 'tamagui';
 import { ArrowUpFromDot, Undo } from '@tamagui/lucide-icons';
 import { useRouter } from 'solito/router';
-import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets';
 
 const DELAY_1 = 500;
 const DELAY_2 = 700;
 
 export const ChatScreen = () => {
-  const safeAreaInsets = useSafeAreaInsets()
   const scrollViewRef = useRef<ScrollView>(null);
   const router = useRouter()
   const [messages, setMessages] = useState([

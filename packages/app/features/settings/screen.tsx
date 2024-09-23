@@ -1,5 +1,5 @@
 import { Paragraph, ScrollView, Separator, Settings, ThemeName, YStack, isWeb, useMedia } from '@my/ui'
-import { Book, Cog, Info, Lock, LogOut, Mail, Moon, Twitter } from '@tamagui/lucide-icons'
+import { Book, Cog, Info, Lock, LogOut, Mail, Moon, Twitter, UsersRound } from '@tamagui/lucide-icons'
 import { useThemeSetting } from 'app/provider/theme'
 import { redirect } from 'app/utils/redirect'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
@@ -30,6 +30,14 @@ export const SettingsScreen = () => {
                 accentTheme="green"
               >
                 General
+              </Settings.Item>
+              <Settings.Item
+                icon={UsersRound}
+                isActive={pathname === 'settings/caregivers'}
+                {...useLink({ href: media.sm ? '/settings/caregivers' : '/settings' })}
+                accentTheme="green"
+              >
+                Caregivers
               </Settings.Item>
               <Settings.Item
                 icon={Lock}
