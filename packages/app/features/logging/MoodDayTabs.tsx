@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { TouchableOpacity, ScrollView } from "react-native";
 import { YStack, Text, Theme, ThemeName, validToken } from "@my/ui"
 import { useAtom } from 'jotai';
@@ -105,6 +105,20 @@ export const MoodDayTabs: React.FC<{ logscreen: boolean }> = ({ logscreen }) => 
   const x = 30;
   const scrollViewRef = useRef<ScrollView>(null);
   const dateList = useMemo(() => generateDateRangeFromXDaysAgo(x), [x]);
+  const [selectedDay, _] = useAtom(selectedDayAtom);
+
+  useEffect(() => {
+    const selectedIndex = dateList.findIndex(date => getDayInfo(date).ISO === selectedDay);
+    // if (scrollViewRef.current) {
+    setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd()
+    }, 100)
+      // scrollViewRef.current.scrollTo({
+      //   x: selectedIndex * 70, // Assuming each tab has a width of 70 including margin
+      //   animated: true,
+      // });
+    // }
+  }, []);
 
   return (
     <ScrollView ref={scrollViewRef} horizontal style={{ width: "100%" }}>

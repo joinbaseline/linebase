@@ -40,7 +40,7 @@ const LogPortal: React.FC<{
   };
 
   return (
-    <>
+    <Container fullscreen>
       <Modal
         visible={visible}
         transparent
@@ -53,7 +53,7 @@ const LogPortal: React.FC<{
           onPress={handleClose}
         >
           <YStack
-            fullscreen
+            f={1}
             jc="center"
             ai="center"
             bg={"rgba(0,0,0,0.55)"}
@@ -103,7 +103,7 @@ const LogPortal: React.FC<{
           </YStack>
         </TouchableOpacity>
       </Modal>
-    </>
+    </Container>
   );
 };
 

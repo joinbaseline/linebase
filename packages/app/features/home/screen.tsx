@@ -98,7 +98,7 @@ const TodoSection = () => {
   return (
     <YStack gap="$4">
       <H4 fow="700">
-        {moment(selectedDay).format('dddd, MMMM D')}
+        {moment(selectedDay).isSame(new Date(), 'day') ? 'Today' : moment(selectedDay).format('dddd, MMMM D')}
       </H4>
       <YStack>
         <TodoList todos={todos} />
