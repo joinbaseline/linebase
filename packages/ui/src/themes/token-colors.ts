@@ -1,4 +1,6 @@
 import {
+  mood,
+  moodbg,
   blue,
   blueDark,
   gray,
@@ -28,6 +30,8 @@ export {
 
 export const colorTokens = {
   light: {
+    mood,
+    moodbg,
     blue,
     gray,
     green,
@@ -38,6 +42,8 @@ export const colorTokens = {
     yellow,
   },
   dark: {
+    mood,
+    moodbg,
     blue: blueDark,
     gray: grayDark,
     green: greenDark,
@@ -50,6 +56,8 @@ export const colorTokens = {
 }
 
 export const darkColors = {
+  ...colorTokens.dark.mood,
+  ...colorTokens.dark.moodbg,
   ...colorTokens.dark.blue,
   ...colorTokens.dark.gray,
   ...colorTokens.dark.green,
@@ -61,6 +69,8 @@ export const darkColors = {
 }
 
 export const lightColors = {
+  ...colorTokens.light.mood,
+  ...colorTokens.light.moodbg,
   ...colorTokens.light.blue,
   ...colorTokens.light.gray,
   ...colorTokens.light.green,

@@ -1,18 +1,18 @@
+import { LoggingScreen } from '@my/app/features/logging/logging-screen'
 import { AuthHeader } from '@my/ui/src/components/AuthHeader'
-import { SignUpScreen } from 'app/features/auth/sign-up-screen'
 import { Stack } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Screen() {
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }} edges={['left', 'right']}>
       <Stack.Screen
         options={{
-          title: 'Sign Up',
-          header: () => <AuthHeader title={"Sign up"} backHref="/onboarding" />
+          headerShown: true,
+          header: () => <AuthHeader />
         }}
       />
-      <SignUpScreen />
-    </>
+      <LoggingScreen />
+    </SafeAreaView>
   )
 }

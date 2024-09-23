@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import moment, { MomentInput } from 'moment'
 import { WebView } from 'react-native-webview'
 import Sahha from 'sahha-react-native'
+import { YStack } from 'tamagui'
+import { useSahha } from './useSahha'
 
 type AnxietyFactorsProps = {
   date?: MomentInput
@@ -9,6 +11,7 @@ type AnxietyFactorsProps = {
 
 export const AnxietyFactors: React.FC<AnxietyFactorsProps> = ({ date }) => {
   const [profileToken, setProfileToken] = useState<string>('')
+  const authenticated = useSahha();
 
   useEffect(() => {
     Sahha.getProfileToken((error: string, token?: string) => {
@@ -21,21 +24,23 @@ export const AnxietyFactors: React.FC<AnxietyFactorsProps> = ({ date }) => {
         console.log(`Profile Token: null`)
       }
     })
-  }, [])
+  }, [authenticated])
 
   const uri = (
     'https://sandbox.webview.sahha.ai/score/anxiety/factors' +
     (date ? `?date=${moment(date).format('YYYY-MM-DD')}` : '')
   )
   return (
-    <WebView
-      source={{
-        uri,
-        headers: {
-          Authorization: profileToken,
-        },
-      }}
-      style={{ flex: 1 }}
-    />
+    <YStack h={20} bg="green" f={1}>
+      <WebView
+        source={{
+          uri,
+          headers: {
+            Authorization: profileToken,
+          },
+        }}
+        style={{ flex: 1 }}
+      />
+    </YStack>
   )
 }

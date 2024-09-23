@@ -67,9 +67,9 @@ const defineConfig = (): ExpoConfig => ({
           enableProguardInReleaseBuilds: true,
           enableShrinkResourcesInReleaseBuilds: true,
         },
-        // ios: {
-        //   deploymentTarget: '15.0',
-        // },
+        ios: {
+          deploymentTarget: '15.0',
+        },
       },
     ],
     'expo-apple-authentication',

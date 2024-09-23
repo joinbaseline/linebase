@@ -1,30 +1,16 @@
-import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import {
   YStack,
   H2,
-  View,
 } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { useRouter } from 'solito/router'
 import { ChatScreen } from './components/OnboardingChat'
+import Container from '@my/ui/src/components/Container'
 
 const ChatOnboarding = ({ handleContinue=() => { return } }: {handleContinue?: () => void}) => {
-  const safeAreaInsets = useSafeAreaInsets()
-  const handleNext = () => {
-    handleContinue();
-  }
-
   return (
-  <>
-    <View
-      f={1}
-      bg="$color1"
-      ov="hidden"
-      pb={safeAreaInsets.bottom}
-      pr={safeAreaInsets.right}
-      pl={safeAreaInsets.left}
-    >
+    <Container>
       <WaveBackground flipX />
       <KeyboardAvoidingView
         style={{
@@ -45,8 +31,7 @@ const ChatOnboarding = ({ handleContinue=() => { return } }: {handleContinue?: (
           </YStack>
         </YStack>
       </KeyboardAvoidingView>
-    </View>
-  </>
+    </Container>
   )
 }
 

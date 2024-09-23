@@ -1,7 +1,7 @@
-import { Button, FormWrapper, H2, Paragraph, SubmitButton, Text, Theme, ThemeName, YStack } from '@my/ui'
+import { Button, FormWrapper, H2, Paragraph, SubmitButton, Text, Theme, YStack } from '@my/ui'
+import Container from '@my/ui/src/components/Container'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ChevronLeft } from '@tamagui/lucide-icons'
-import { useThemeSetting } from 'app/provider/theme'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
 import { useEffect } from 'react'
@@ -18,7 +18,6 @@ const ResetPasswordSchema = z.object({
 
 export const ResetPasswordScreen = () => {
   const supabase = useSupabase()
-  const { current: modeTheme } = useThemeSetting()
   const { params } = useParams()
   const updateParams = useUpdateParams()
   useEffect(() => {
@@ -43,7 +42,7 @@ export const ResetPasswordScreen = () => {
   }
 
   return (
-  <YStack theme={modeTheme as ThemeName} f={1} bg="$color1">
+  <Container>
     <WaveBackground fill={"$red3"} flipX />
     <FormProvider {...form}>
       {form.formState.isSubmitSuccessful ? (
@@ -83,7 +82,7 @@ export const ResetPasswordScreen = () => {
         </SchemaForm>
       )}
     </FormProvider>
-  </YStack>
+  </Container>
   )
 }
 

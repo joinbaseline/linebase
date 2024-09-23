@@ -11,6 +11,7 @@ import { z } from 'zod'
 
 import { api } from '../../utils/api'
 import { UploadAvatar } from '../settings/components/upload-avatar'
+import Container from '@my/ui/src/components/Container'
 
 const { useParams } = createParam<{ edit_name?: '1'; edit_about?: '1' }>()
 export const EditProfileScreen = () => {
@@ -60,6 +61,7 @@ const EditProfileForm = ({
   })
 
   return (
+    <Container>
     <SchemaForm
       schema={ProfileSchema}
       props={{
@@ -92,6 +94,7 @@ const EditProfileForm = ({
         </>
       )}
     </SchemaForm>
+  </Container>
   )
 }
 

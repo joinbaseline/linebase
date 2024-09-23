@@ -4,6 +4,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "b": "expo prebuild",
     "clean": "react-native-clean-project",
     "start": "EXPO_USE_METRO_WORKSPACE_ROOT=1 npx expo start -c",
     "android": "yarn expo run:android",
@@ -24,7 +25,6 @@
     "ios": "yarn expo run:ios",
     "lint": "eslint ./app",
     "lint:fix": "eslint ./app --fix",
-    "eject": "expo eject",
     "check:type": "tsc --outDir /tmp",
     "check:type:watch": "yarn check:type -w"
   },
@@ -32,6 +32,7 @@
     "@babel/runtime": "^7.18.9",
     "@my/ui": "*",
     "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-community/datetimepicker": "7.6.3",
     "@react-native-community/netinfo": "11.3.1",
     "@tamagui-google-fonts/eb-garamond": "*",
     "app": "*",
@@ -70,7 +71,8 @@
     "react-native-svg": "^15.4.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.10",
-    "react-native-webview": "^13.10.5"
+    "react-native-webview": "^13.10.5",
+    "sahha-react-native": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24",

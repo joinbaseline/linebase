@@ -1,34 +1,31 @@
 import {
   AchievementCard,
-  Banner,
   Button,
-  EventCard,
   FeedCard,
   H2,
   H4,
   OverviewCard,
-  Paragraph,
   ScrollView,
   Separator,
+  Text,
   Theme,
-  ThemeName,
-  TodoCard,
   XStack,
   YStack,
-  isWeb,
   useMedia,
   validToken,
 } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ArrowRight, LineChart, Pencil, User, Users } from '@tamagui/lucide-icons'
-import { useThemeSetting } from 'app/provider/theme'
-import { api } from 'app/utils/api'
 import { signedInAtom } from 'app/utils/atoms.native'
 import { useAtom } from 'jotai'
 import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/link'
 import { useRouter } from 'solito/router'
+import { ProfileTabIcon } from '@my/app/features/tabs/ProfileIcon'
+import Container from '@my/ui/src/components/Container'
+import { TodoList } from '@my/app/features/todos/Todos'
+import { todos } from '@my/app/features/todos/TodoData'
 
 const defaultAuthors = [
   {
@@ -44,7 +41,6 @@ const defaultAuthors = [
 ]
 
 export function HomeScreen() {
-  const { current: modeTheme } = useThemeSetting()
   const [signedIn, setSignedIn] = useAtom(signedInAtom)
   const router = useRouter();
 
@@ -55,91 +51,26 @@ export function HomeScreen() {
   }, [signedIn])
 
   return (
-    <YStack theme={modeTheme as ThemeName} bg="$color1" f={1}>
+    <Container mt={-16}>
       <WaveBackground flipX />
       <XStack maw={1480} als="center" f={1}>
         <ScrollView f={3} fb={0}>
-          <YStack gap="$3" pt="$5" pb="$8">
+          <YStack px="$3" gap="$3" pt="$5" pb="$8">
             <Greetings />
-            <YStack gap="$6">
-              <AchievementsSection />
+            <Separator />
+            <TodoSection />
+             {/*
+            <YStack gap="$4">
               <OverviewSection />
+              <AchievementsSection />
               <PostsSection />
             </YStack>
+            */}
           </YStack>
         </ScrollView>
-
         <Separator vertical />
-
-        {isWeb && <EventCards />}
       </XStack>
-    </YStack>
-  )
-}
-
-const EventCards = () => {
-  return (
-    <ScrollView f={1} fb={0} $md={{ dsp: 'none' }}>
-      <YStack separator={<Separator />}>
-        <YStack>
-          <EventCard
-            title="Event #1"
-            description="Lorem ipsum dolor sit, amet."
-            action={{
-              text: 'Show Event',
-              props: useLink({ href: '/' }),
-            }}
-            tags={[
-              { text: 'New', theme: 'green_alt2' },
-              { text: 'Hot', theme: 'orange_alt2' },
-            ]}
-          />
-          <EventCard
-            title="Event #2"
-            description="Lorem ipsum dolor sit, amet."
-            action={{
-              text: 'Show Event',
-              props: useLink({ href: '/' }),
-            }}
-            tags={[{ text: '1 Day Remaining', theme: 'blue_alt2' }]}
-          />
-          <EventCard
-            title="Event #3"
-            description="Lorem ipsum dolor sit, amet."
-            action={{
-              text: 'Show Event',
-              props: useLink({ href: '/' }),
-            }}
-            tags={[{ text: 'Ongoing', theme: 'alt1' }]}
-          />
-          <EventCard
-            title="Event #4"
-            description="Lorem ipsum dolor sit, amet."
-            action={{
-              text: 'Show Event',
-              props: useLink({ href: '/' }),
-            }}
-            tags={[{ text: 'Finished', theme: 'alt2' }]}
-          />
-        </YStack>
-        <YStack p="$3">
-          <Theme name="blue_alt1">
-            <Banner {...useLink({ href: '/' })} cur="pointer">
-              <H4>Upgrade Now!</H4>
-              <Paragraph size="$2" mt="$1">
-                Upgrade to access exclusive features and more!
-              </Paragraph>
-            </Banner>
-          </Theme>
-        </YStack>
-        <YStack>
-          <TodoCard label="Contribute to OSS" checked={false} />
-          <TodoCard label="Learn about Tamagui's latest features" checked />
-          <TodoCard label="Upgrade to the new Expo version" checked={false} />
-          <TodoCard label="Do the dishes" checked={false} />
-        </YStack>
-      </YStack>
-    </ScrollView>
+    </Container>
   )
 }
 
@@ -156,16 +87,35 @@ const quarterMinusSpace = validToken(
     native: '21%',
   })
 )
+const TodoSection = () => {
+  return (
+    <YStack gap="$4">
+      <H4 fow="700">
+        Today
+      </H4>
+      <YStack>
+        <TodoList todos={todos} />
+      </YStack>
+      <XStack ai="center" gap="$2" jc="space-between" mb="$4">
+        <Theme>
+          <Button size="$2" {...useLink({ href: '/' })} iconAfter={ArrowRight}>
+            Adjust Daily Goals
+          </Button>
+        </Theme>
+      </XStack>
+    </YStack>
+  )
+}
 
 const AchievementsSection = () => {
   return (
     <YStack gap="$4">
-      <XStack px="$4.5" ai="center" gap="$2" jc="space-between" mb="$4">
-        <H4 theme="alt1" fow="400">
+      <XStack ai="center" gap="$2" jc="space-between" mb="$4">
+        <H4 fow="700">
           Getting Started
         </H4>
-        <Theme name="alt2">
-          <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
+        <Theme>
+          <Button size="$2" {...useLink({ href: '/' })} iconAfter={ArrowRight}>
             All Achievements
           </Button>
         </Theme>
@@ -173,7 +123,7 @@ const AchievementsSection = () => {
 
       <ScrollAdapt>
         <XStack px="$4" fw="wrap" f={1} gap="$3">
-          <Theme name="green_alt1">
+          <Theme name="yellow_alt1">
             <AchievementCard
               w={300}
               $gtMd={{
@@ -254,13 +204,14 @@ const AchievementsSection = () => {
 const OverviewSection = () => {
   return (
     <YStack gap="$4">
-      <XStack px="$4.5" ai="center" gap="$2" jc="space-between" mb="$4">
-        <H4 fow="400">Overview</H4>
-        <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
-          View All Stats
-        </Button>
+      <XStack ai="center" gap="$2" jc="space-between" mb="$4">
+        <Text fos="$4" fow="600">Your scores this week</Text>
+        {/*
+          <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
+            View All Stats
+          </Button>
+        */}
       </XStack>
-
       <ScrollAdapt>
         <XStack fw="wrap" ai="flex-start" jc="flex-start" px="$4" gap="$8" mb="$4">
           <OverviewCard title="Average Mood" value="7.3" badgeText="+0.5%" badgeState="success" />
@@ -292,15 +243,15 @@ const feedCardWidthMd = validToken(
 
 const PostsSection = () => {
   return (
-    <YStack gap="$4">
-      <XStack px="$4.5" ai="center" gap="$2" jc="space-between" mb="$4">
-        <H4 fow="400">Latest Posts</H4>
+    <YStack>
+      <XStack ai="center" gap="$2" jc="space-between" mb="$4">
+        <H4 fow="700">Latest Posts</H4>
         <Button size="$2" chromeless {...useLink({ href: '/' })} iconAfter={ArrowRight}>
           View All Posts
         </Button>
       </XStack>
       <ScrollAdapt>
-        <XStack px="$4" gap="$4" mb="$4" jc="flex-start" fw="wrap">
+        <XStack gap="$3" mb="$4" jc="flex-start" fw="wrap">
           <FeedCard
             withImages
             w={300}
@@ -377,10 +328,20 @@ function ScrollAdapt({ children }: { children: React.ReactNode }) {
 }
 
 const Greetings = () => {
-  // const greetingQuery = api.greeting.greet.useQuery()
+  const firstName = "John";
   return (
-    <H2 px="$4">
-      Welcome!{/*greetingQuery.data || '-'*/}
-    </H2>
+    <XStack>
+      <YStack f={2/3}>
+        <H2>
+          {`Hello, ${firstName}`}
+        </H2>
+        <Text fos="$2">
+          Nice to have you back.
+        </Text>
+      </YStack>
+      <YStack f={1/3} ai='center' jc='center'>
+        <ProfileTabIcon color="$black5" size={50} focused={false} />
+      </YStack>
+    </XStack>
   )
 }

@@ -15,6 +15,7 @@ import { useRouter } from 'solito/router'
 import { useThemeSetting } from 'app/provider/theme'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Alert } from 'react-native'
+import Container from '@my/ui/src/components/Container'
 
 const OptionButton = ({ index, label, selected, onPress }: {
   index: number, 
@@ -85,21 +86,10 @@ const Onboarding = ({ handleContinue=() => { return } }: {handleContinue?: () =>
   }
 
   return (
-  <>
-    <View
-      f={1}
-      bg="$color1"
-      ov="hidden"
-      pt={safeAreaInsets.top}
-      pb={safeAreaInsets.bottom}
-      pr={safeAreaInsets.right}
-      pl={safeAreaInsets.left}
-    >
+    <Container pt={safeAreaInsets.top}>
       <WaveBackground />
-
       {/* Two 50/50 evenly spaces YStacks, second one has content at the end */}
       <YStack f={1} jc="space-evenly">
-        {/* This text should be  */}
         <YStack f={1/3} px="$5" jc="center" ai="center">
           <YStack ai="center" jc="center" gap="$2">
             <H2 als="center" ta="center" size="$9" ff="$body" col="$color12">
@@ -130,8 +120,7 @@ const Onboarding = ({ handleContinue=() => { return } }: {handleContinue?: () =>
           </XStack>
         </YStack>
       </YStack>
-    </View>
-  </>
+    </Container>
   )
 }
 
