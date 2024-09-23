@@ -86,7 +86,7 @@ export const UploadAvatar = ({ children }: { children: React.ReactNode }) => {
     <YStack pos="relative" als="center" fs={1} onPress={() => pickImage()} cur="pointer">
       {children}
       <YStack fullscreen jc="center" ai="center" zi={100}>
-        <YStack bg="black" o={0.3} br="$10" fullscreen />
+        <YStack bg="black" o={0.2} br="$10" fullscreen />
         <YStack fullscreen jc="center" ai="center">
           <Upload col="white" />
         </YStack>

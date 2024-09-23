@@ -16,6 +16,8 @@ import { useThemeSetting } from 'app/provider/theme'
 import { useUser } from 'app/utils/useUser'
 import { SolitoImage } from 'solito/image'
 import { Link, useLink } from 'solito/link'
+import { ProfileTabIcon } from '../../components/ProfileIcon'
+import { STROKE_WIDTH } from '../../utils/svg/constants'
 
 export function ProfileScreen() {
   const { profile, avatarUrl } = useUser()
@@ -28,16 +30,7 @@ export function ProfileScreen() {
       <WaveBackground />
       <YStack f={1} gap="$4">
         <XStack gap="$2" jc="center" zi={10}>
-          {avatarUrl ? (
-            <Avatar circular size="$14">
-              <SolitoImage
-                src={avatarUrl}
-                alt="your avatar"
-                width={getTokens().size['14'].val}
-                height={getTokens().size['14'].val}
-              />
-            </Avatar>): <CircleUser strokeWidth={0.3} size="$12" />
-          }
+          <ProfileTabIcon focused={false} color="black" size={128} strokeWidth={STROKE_WIDTH + 0.25} />
         </XStack>
         <YStack gap="$2">
           {name ? (

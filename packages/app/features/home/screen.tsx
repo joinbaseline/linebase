@@ -16,16 +16,20 @@ import {
 } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ArrowRight, LineChart, Pencil, User, Users } from '@tamagui/lucide-icons'
-import { signedInAtom } from 'app/utils/atoms.native'
+import { selectedDayAtom, signedInAtom } from 'app/utils/atoms.native'
 import { useAtom } from 'jotai'
 import React, { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { useLink } from 'solito/link'
 import { useRouter } from 'solito/router'
-import { ProfileTabIcon } from '@my/app/features/tabs/ProfileIcon'
+import { ProfileTabIcon } from '@my/app/components/ProfileIcon'
+
 import Container from '@my/ui/src/components/Container'
 import { TodoList } from '@my/app/features/todos/Todos'
 import { todos } from '@my/app/features/todos/TodoData'
+import { STROKE_WIDTH } from '../../utils/svg/constants'
+import { MoodDayTabs } from '../logging/MoodDayTabs'
+import moment from 'moment'
 
 const defaultAuthors = [
   {
@@ -57,6 +61,7 @@ export function HomeScreen() {
         <ScrollView f={3} fb={0}>
           <YStack px="$3" gap="$3" pt="$5" pb="$8">
             <Greetings />
+            <MoodDayTabs logscreen={false} />
             <Separator />
             <TodoSection />
              {/*
@@ -88,10 +93,12 @@ const quarterMinusSpace = validToken(
   })
 )
 const TodoSection = () => {
+  const [ selectedDay, _ ] = useAtom(selectedDayAtom);
+
   return (
     <YStack gap="$4">
       <H4 fow="700">
-        Today
+        {moment(selectedDay).format('dddd, MMMM D')}
       </H4>
       <YStack>
         <TodoList todos={todos} />
@@ -340,7 +347,7 @@ const Greetings = () => {
         </Text>
       </YStack>
       <YStack f={1/3} ai='center' jc='center'>
-        <ProfileTabIcon color="$black5" size={50} focused={false} />
+        <ProfileTabIcon strokeWidth={STROKE_WIDTH + 0.25} color="$black5" size={50} focused={false} />
       </YStack>
     </XStack>
   )

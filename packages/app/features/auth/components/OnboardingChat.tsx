@@ -133,23 +133,7 @@ export const ChatScreen = () => {
             <UndoButton handleUndo={handleUndo} /> 
             <SendButton handleSend={() => handleSend()} />
           </XStack>
-          <XStack pos="absolute" zi={-1} r={10} b={-30} jc='flex-end' ai="flex-end" mt="$2">
-            <Button
-              elevate
-              themeInverse
-              mah="$4"
-              size="$2"
-              maw="$8"
-              pressStyle={{
-                bg: '$color5',
-              }}
-              bg="$color1"
-              onPress={handleContinue}
-              br="$10"
-            >
-              Skip
-            </Button>
-          </XStack>
+
         </YStack>
         )}
       </XStack>

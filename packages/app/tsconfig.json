@@ -7,7 +7,8 @@
     "index.ts",
     "types.d.ts",
     "../ui/src",
-    "../api/src"
+    "../api/src",
+    "components/ProfileIcon.tsx"
   ],
   "compilerOptions": {
     "noEmit": true,

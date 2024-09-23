@@ -1,18 +1,15 @@
-import { Avatar, ColorTokens, YStack, getTokenValue, validToken } from '@my/ui'
+import { ColorTokens, getTokenValue } from '@my/ui'
 import { AuthHeader } from '@my/ui/src/components/AuthHeader'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
-import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
-import { Home, MessagesSquare, ActivitySquare, User, PlusCircle, BookOpenText } from '@tamagui/lucide-icons'
-import { useUser } from 'app/utils/useUser'
+import { Home, ActivitySquare, PlusCircle, BookOpenText } from '@tamagui/lucide-icons'
 import { Stack, Tabs } from 'expo-router'
-import { SolitoImage } from 'solito/image'
 import { useThemeSetting } from '@my/app/provider/theme'
-import { ProfileTabIcon } from '@my/app/features/tabs/ProfileIcon'
+import { ProfileTabIcon } from '@my/app/components/ProfileIcon'
 
 const STROKE_WIDTH = 1.5;
 
 export default function Layout() {
-  const { current: modeTheme} = useThemeSetting()
+  const { resolvedTheme: modeTheme } = useThemeSetting()
 
   const getTintColor = () => {
     return "white"
@@ -33,9 +30,13 @@ export default function Layout() {
         tabBarActiveTintColor: getTintColor(),
         tabBarStyle: {
           backgroundColor: getBackgroundColor(),
-          paddingTop: 5,
-          marginBottom: 10,
         },
+        tabBarIconStyle: {
+          marginBottom: -5, // Move tab icons down by 5 units
+        },
+        tabBarLabelStyle: {
+          marginBottom: -5
+        }
       }}>
         <Tabs.Screen
           name="index"
@@ -79,7 +80,7 @@ export default function Layout() {
             title: 'Settings',
             headerShown: true,
             header: () => <AuthHeader />,
-            tabBarIcon: ProfileTabIcon,
+            tabBarIcon: ({ size, color, focused }) => <ProfileTabIcon focused={focused} strokeWidth={STROKE_WIDTH + 0.25} color={color} size={size} />,
           }}
         />
       </Tabs>

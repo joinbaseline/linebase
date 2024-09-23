@@ -26,7 +26,7 @@ export const TodoCard = ({
   const LabelText = () => {
     return (
       <XStack ai="center" gap="$2">
-        <Paragraph textDecorationLine={props.checked ? 'line-through' : 'none'} size="$3">
+        <Paragraph textDecorationLine={isChecked ? 'line-through' : 'none'} size="$3">
           {label}
         </Paragraph>
         {link && <ExternalLink size={16} />}
@@ -46,7 +46,7 @@ export const TodoCard = ({
   }
 
   useEffect(() => {
-    setIsChecked(props.checked)
+    if (props.checked !== isChecked) setIsChecked(props.checked);
   }, [props.checked])
 
   const borderRadiusStyle = {
