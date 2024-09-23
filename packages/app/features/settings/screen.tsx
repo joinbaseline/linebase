@@ -32,14 +32,6 @@ export const SettingsScreen = () => {
                 General
               </Settings.Item>
               <Settings.Item
-                icon={UsersRound}
-                isActive={pathname === 'settings/caregivers'}
-                {...useLink({ href: media.sm ? '/settings/caregivers' : '/settings' })}
-                accentTheme="green"
-              >
-                Caregivers
-              </Settings.Item>
-              <Settings.Item
                 icon={Lock}
                 isActive={pathname === '/settings/change-password'}
                 {...useLink({ href: '/settings/change-password' })}

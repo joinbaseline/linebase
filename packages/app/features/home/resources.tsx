@@ -17,7 +17,7 @@ export function ResourcesScreen() {
   }, [signedIn])
 
   return (
-    <Container mt={-16}>
+    <Container>
       <WaveBackground />
       <ScrollView f={3} fb={0}>
         <YStack px="$3" gap="$3" pt="$5" pb="$8">

@@ -11,7 +11,7 @@ import {
 } from '@my/ui'
 import Container from '@my/ui/src/components/Container'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
-import { Box, Cog, Milestone, ShoppingCart, Users, CircleUser } from '@tamagui/lucide-icons'
+import { Box, Cog, Milestone, ShoppingCart, Users, CircleUser, BellRing, RadioTower } from '@tamagui/lucide-icons'
 import { useThemeSetting } from 'app/provider/theme'
 import { useUser } from 'app/utils/useUser'
 import { SolitoImage } from 'solito/image'
@@ -54,21 +54,19 @@ export function ProfileScreen() {
           <Settings>
             <Settings.Items>
               <Settings.Group gap={1}>
-                {/* dummy item - doesn't lead anywhere */}
-                <Settings.Item icon={Box} accentTheme="green">
-                  My Items
+                {/* dummy item - doesn't lead anywhere yet */}
+                <Settings.Item icon={Box} accentTheme="red">
+                  My Medications
+                </Settings.Item>
+                <Settings.Item {...useLink({ href: '/settings/caregivers' })} icon={Users} accentTheme="green">
+                  Caregivers
                 </Settings.Item>
                 {/* dummy item - doesn't lead anywhere */}
-                <Settings.Item icon={Users} accentTheme="orange">
-                  Refer Your Friends
+                <Settings.Item icon={BellRing} accentTheme="blue">
+                  Notifications
                 </Settings.Item>
-                {/* dummy item - doesn't lead anywhere */}
-                <Settings.Item icon={Milestone} accentTheme="blue">
-                  Address Info
-                </Settings.Item>
-                {/* dummy item - doesn't lead anywhere */}
-                <Settings.Item icon={ShoppingCart} accentTheme="blue">
-                  Purchase History
+                <Settings.Item icon={RadioTower} accentTheme="orange">
+                  Caregiver Broadcasting
                 </Settings.Item>
                 <Settings.Item {...useLink({ href: '/settings' })} icon={Cog}>
                   Settings
