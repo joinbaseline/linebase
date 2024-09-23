@@ -6,7 +6,7 @@ const defineConfig = (): ExpoConfig => ({
   slug: 'baseline',
   jsEngine: 'hermes',
   scheme: 'baseline',
-  version: '1.0.8',
+  version: '1.0.9',
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'automatic',
