@@ -5,7 +5,7 @@ import { useRouter } from 'solito/router';
 export const SkipButton = () => {
   const router = useRouter();
   return (
-    <XStack pos="absolute" zi={-1} r={10} b={-30} jc='flex-end' ai="flex-end" mt="$2">
+    <XStack pos="absolute" zi={-1} r={10} b={-10} jc='flex-end' ai="flex-end" mt="$2">
       <Button
         elevate
         themeInverse

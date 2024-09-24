@@ -8,7 +8,7 @@ import { useRouter } from 'solito/router'
 import { z } from 'zod'
 
 import { api } from 'app/utils/api'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 import { ProfileTabIcon } from '@my/app/components/ProfileIcon'
 import { STROKE_WIDTH } from '@my/app/utils/svg/constants'
 import { UploadAvatar } from '@my/app/features/settings/components/upload-avatar'

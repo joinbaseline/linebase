@@ -6,7 +6,7 @@ import {
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { useRouter } from 'solito/router'
 import { ChatScreen } from './components/OnboardingChat'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 
 const ChatOnboarding = ({ handleContinue=() => { return } }: {handleContinue?: () => void}) => {
   return (

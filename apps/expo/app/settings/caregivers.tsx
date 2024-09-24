@@ -10,7 +10,7 @@ import {
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { AuthHeader } from '@my/ui/src/components/AuthHeader';
-import Container from '@my/ui/src/components/Container';
+import { Container } from '@my/ui/src/components/Container';
 
 type Caregiver = {
   id: number;

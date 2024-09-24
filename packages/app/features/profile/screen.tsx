@@ -9,7 +9,7 @@ import {
   YStack,
   getTokens,
 } from '@my/ui'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { Box, Cog, Milestone, ShoppingCart, Users, CircleUser, BellRing, RadioTower } from '@tamagui/lucide-icons'
 import { useThemeSetting } from 'app/provider/theme'

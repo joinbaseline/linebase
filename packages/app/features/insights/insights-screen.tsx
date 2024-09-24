@@ -3,7 +3,7 @@ import {
   Text,
 } from '@my/ui'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
   
 export const InsightsScreen = () => {
   return (

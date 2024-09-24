@@ -7,12 +7,17 @@ export const todos: Todo[] = [
     link: '/(tabs)/log', 
   },
   { 
-    type: 'takeMedication', 
-    label: 'Take your medication', 
+    type: 'addMedication', 
+    label: 'Add your medication', 
+    link: '/settings/medications',
   },
   { 
     type: 'addCaregiver',
     label: 'Add a caregiver',
     link: '/settings/caregivers',
+  },
+  { 
+    type: 'takeMedication', 
+    label: 'Take your medication', 
   },
 ];

@@ -1,5 +1,5 @@
 import { Button, FormWrapper, H2, Paragraph, SubmitButton, Text, Theme, YStack } from '@my/ui'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { ChevronLeft } from '@tamagui/lucide-icons'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'

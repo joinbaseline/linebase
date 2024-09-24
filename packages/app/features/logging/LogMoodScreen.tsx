@@ -18,7 +18,7 @@ import { PortalSaveButton } from "./PortalSaveButton";
 import { useAtom } from "jotai";
 import { $moodAtom, $storedMoodsAtom } from "@my/app/utils/entries/atoms";
 import moment from "moment";
-import Container from "@my/ui/src/components/Container";
+import { Container } from "@my/ui/src/components/Container";
 import { createEntry } from "@my/app/utils/entries/createEntry";
 import { MoodEntry } from "@my/app/utils/entries/types";
 

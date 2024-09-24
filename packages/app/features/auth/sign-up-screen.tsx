@@ -23,7 +23,7 @@ import { localEmailAtom, localFirstNameAtom, localLastNameAtom, localPasswordAto
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 import { useRouter } from 'solito/router'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
 

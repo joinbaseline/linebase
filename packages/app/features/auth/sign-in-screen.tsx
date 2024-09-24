@@ -15,7 +15,7 @@ import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 import { useThemeSetting } from 'app/provider/theme'
 import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
 

@@ -1,4 +1,4 @@
-import Container from "@my/ui/src/components/Container";
+import { Container } from "@my/ui/src/components/Container";
 import { WaveBackground } from "@my/ui/src/components/WaveBackground";
 import { H4, ScrollView, YStack } from "@my/ui"
 import { signedInAtom } from "app/utils/atoms.native";

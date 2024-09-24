@@ -24,7 +24,7 @@ import { useLink } from 'solito/link'
 import { useRouter } from 'solito/router'
 import { ProfileTabIcon } from '@my/app/components/ProfileIcon'
 
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 import { TodoList } from '@my/app/features/todos/Todos'
 import { todos } from '@my/app/features/todos/TodoData'
 import { STROKE_WIDTH } from '../../utils/svg/constants'

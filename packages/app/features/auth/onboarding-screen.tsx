@@ -15,7 +15,7 @@ import { useRouter } from 'solito/router'
 import { useThemeSetting } from 'app/provider/theme'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Alert } from 'react-native'
-import Container from '@my/ui/src/components/Container'
+import { Container } from '@my/ui/src/components/Container'
 
 const OptionButton = ({ index, label, selected, onPress }: {
   index: number, 

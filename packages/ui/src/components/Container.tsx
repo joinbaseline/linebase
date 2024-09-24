@@ -6,7 +6,7 @@ interface CustomYStackProps extends YStackProps { // Extend YStackProps
   children: React.ReactNode;
 }
 
-const Container = ({ children, ...props }: CustomYStackProps) => {
+export const Container = ({ children, ...props }: CustomYStackProps) => {
   const safeAreaInsets = useSafeAreaInsets();
   const { current: modeTheme } = useThemeSetting(); // Get modeTheme directly
 
@@ -24,5 +24,3 @@ const Container = ({ children, ...props }: CustomYStackProps) => {
     </YStack>
   )
 }
-
-export default Container;
