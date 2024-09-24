@@ -42,9 +42,9 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
         setHint(exactMatch.hint);
         setDoseHint(`Typical dose range: ${exactMatch.doseRange.min}-${exactMatch.doseRange.max} ${exactMatch.doseRange.unit}`);
         
-        const dosageInMg = formData.unit === 'g' ? formData.dosage * 1000 : formData.dosage * (formData.frequency || 1);
-        const minDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.min * 1000 : exactMatch.doseRange.min * exactMatch.frequency;
-        const maxDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.max * 1000 : exactMatch.doseRange.max * exactMatch.frequency;
+        const dosageInMg = (formData.unit === 'g' ? formData.dosage * 1000 : formData.dosage) * (formData.frequency || 1);
+        const minDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.min * 1000 : exactMatch.doseRange.min;
+        const maxDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.max * 1000 : exactMatch.doseRange.max;
 
         setIsDoseWarning(dosageInMg < minDoseInMg || dosageInMg > maxDoseInMg);
         setSuggestions([]); // Remove suggestions after exact match

@@ -55,7 +55,7 @@ export function ProfileScreen() {
             <Settings.Items>
               <Settings.Group gap={1}>
                 {/* dummy item - doesn't lead anywhere yet */}
-                <Settings.Item icon={Box} accentTheme="red">
+                <Settings.Item {...useLink({ href: '/settings/medications' })} icon={Box} accentTheme="red">
                   My Medications
                 </Settings.Item>
                 <Settings.Item {...useLink({ href: '/settings/caregivers' })} icon={Users} accentTheme="green">
