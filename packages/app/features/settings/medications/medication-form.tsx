@@ -79,6 +79,23 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
     setFormData(prev => ({ ...prev, times: newTimes }));
   };
 
+  const updateFormDataWithFrequency = (newFrequency) => {
+    if (newFrequency && !isNaN(newFrequency)) {
+      setFormData(prev => {
+        const updatedTimes = newFrequency > prev.times.length
+          ? prev.times.concat(Array(newFrequency - prev.times.length).fill('08:00'))
+          : prev.times.slice(0, newFrequency);
+        return {
+          ...prev,
+          frequency: newFrequency,
+          times: newFrequency ? updatedTimes : prev.times
+        };
+      });
+    } else {
+      setFormData(prev => ({ ...prev, frequency: 0 }));
+    }
+  };
+
   useEffect(() => {
     if (medication) {
       setFormData(medication);
@@ -148,29 +165,16 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
         <Text>time(s) per day</Text>
         <Input
           px="$4"
-          placeholder={formData.frequency.toString() || "Times per day"}
+          placeholder={formData.frequency.toString()}
           keyboardType="numeric"
-          value={formData.frequency ? formData.frequency.toString() : ""}
+          value={formData.frequency ? formData.frequency.toString() : ''}
           onChangeText={(value) => {
             const newFrequency = parseInt(value);
             if (newFrequency > 9) {
               Alert.alert('Please enter a frequency less than 10.');
               return;
             }
-            if (newFrequency) {
-              setFormData(prev => {
-                const updatedTimes = newFrequency > prev.times.length 
-                  ? prev.times.concat(Array(newFrequency - prev.times.length).fill('08:00'))
-                  : prev.times.slice(0, newFrequency);
-                return {
-                  ...prev,
-                  frequency: newFrequency,
-                  times: newFrequency ? updatedTimes : prev.times
-                };
-              });
-            } else {
-              setFormData(prev => ({ ...prev, frequency: 0 }));
-            }
+            updateFormDataWithFrequency(newFrequency);
           }}
         />
       </XStack>
