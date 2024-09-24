@@ -26,7 +26,7 @@ const caregiversAtom = atomWithStorage<Caregiver[]>('caregivers', [
 ]);
 
 const CaregiverItem = ({ name, role, email, phone, onEdit, onDelete }) => (
-  <Card elevate bordered mb="$4" p="$4">
+  <Card elevation={1} bordered mb="$4" p="$4">
     <XStack jc="space-between" ai="center" mb="$2">
       <Text fos="$6" fow="bold">{name}</Text>
       <XStack gap="$2">
@@ -134,7 +134,7 @@ const CaregiverManagementPage = () => {
           keyExtractor={item => item.id.toString()}
           contentContainerStyle={{ padding: 16 }}
           ListEmptyComponent={() => (
-            <Card elevate bordered mb="$4" p="$4">
+            <Card elevation={1} bg="$color1" bordered mb="$4" p="$4">
               <XStack jc="space-between" ai="center" mb="$2">
                 <Text fos="$6" fow="bold">No Caregivers</Text>
                 <Button icon={Plus} onPress={() => setIsAddModalOpen(true)} chromeless circular />

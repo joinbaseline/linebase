@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { 
   XStack, 
+  YStack, 
   Text, 
   Button, 
   Sheet,
@@ -38,28 +39,29 @@ export const MedicationManagementPage = () => {
 
   return (
     <Container>
-      <ScrollView p="$4">
-        {medications.map(medication => (
-          <MedicationItem
-            key={medication.id}
-            {...medication}
-            onEdit={() => {
-              setCurrentMedication(medication);
-              setIsEditModalOpen(true);
-            }}
-            onDelete={() => deleteMedication(medication.id)}
-          />
-        ))}
-      </ScrollView>
+      <YStack>
+        <ScrollView p="$4" contentContainerStyle={{gap: "$4"}}>
+          {medications.map(medication => (
+            <MedicationItem
+              key={medication.id}
+              {...medication}
+              onEdit={() => {
+                setCurrentMedication(medication);
+                setIsEditModalOpen(true);
+              }}
+              onDelete={() => deleteMedication(medication.id)}
+            />
+          ))}
+        </ScrollView>
 
-      <XStack ai='center'>
-        <Button
-          bg="$color4"
-          elevation={5}
-          icon={Plus} onPress={() => setIsAddModalOpen(true)} chromeless circular style={{ margin: 16 }} />
-        <Text onPress={() => setIsAddModalOpen(true)}>Add Medication</Text>
-      </XStack>
-
+        <XStack ai='center'>
+          <Button
+            elevate
+            bg="$color4"
+            icon={Plus} onPress={() => setIsAddModalOpen(true)} chromeless circular style={{ margin: 16 }} />
+          <Text onPress={() => setIsAddModalOpen(true)}>Add Medication</Text>
+        </XStack>
+      </YStack>
       <Sheet
         modal
         open={isAddModalOpen}
@@ -70,14 +72,13 @@ export const MedicationManagementPage = () => {
           <Sheet.Handle />
           <ScrollView p="$4">
             <XStack f={1} jc="space-between" ai='center' mb="$4">
-              <Text fos="$6" fow="bold">Add New Medication</Text>
+              <Text fos="$7" fow="300">Add New Medication</Text>
               <TouchableOpacity onPress={() => setIsAddModalOpen(false)}>
                 <X />
               </TouchableOpacity>
             </XStack>
             <MedicationForm
               onSubmit={addMedication}
-              onCancel={() => setIsAddModalOpen(false)}
             />
           </ScrollView>
         </Sheet.Frame>
@@ -93,7 +94,7 @@ export const MedicationManagementPage = () => {
           <Sheet.Handle />
           <ScrollView px="$4" pt="$3">
             <XStack f={1} jc="space-between" ai='center' mb="$4">
-              <Text fos="$6" fow="bold">Edit Medication</Text>
+              <Text fos="$7" fow="300">Edit Medication</Text>
               <TouchableOpacity onPress={() => setIsEditModalOpen(false)}>
                 <X />
               </TouchableOpacity>
@@ -101,7 +102,6 @@ export const MedicationManagementPage = () => {
             <MedicationForm
               medication={currentMedication}
               onSubmit={editMedication}
-              onCancel={() => setIsEditModalOpen(false)}
             />
           </ScrollView>
         </Sheet.Frame>

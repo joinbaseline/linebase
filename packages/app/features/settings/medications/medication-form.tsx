@@ -16,13 +16,13 @@ import { medicationInfo } from '@my/app/features/settings/medications/data';
 import { Hint } from '@my/app/features/settings/components/hint';
 
 
-export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medication?: Medication | null, onSubmit: (data: Medication) => void, onCancel: () => void }) => {
+export const MedicationForm = ({ medication = null, onSubmit }: { medication?: Medication | null, onSubmit: (data: Medication) => void}) => {
   const [formData, setFormData] = useState<Medication>(medication || { 
     id: Date.now(),
-    name: '', 
-    dosage: 0, 
-    unit: 'mg', 
-    frequency: 1, 
+    name: '',
+    dosage: 0,
+    unit: 'mg',
+    frequency: 1,
     times: ['08:00'] 
   });
   const [hint, setHint] = useState('');
@@ -31,20 +31,20 @@ export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medi
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
   useEffect(() => {
-    if (formData.name) {
-      const matchedMedications = Object.keys(medicationInfo).filter(med => 
-        med.toLowerCase().includes(formData.name.toLowerCase())
-      );
-      setSuggestions(matchedMedications);
+    const matchedMedications = Object.keys(medicationInfo).filter(med => 
+      med.toLowerCase().includes(formData.name.toLowerCase())
+    );
+    setSuggestions(matchedMedications);
 
+    if (formData.name) {
       const exactMatch = medicationInfo[formData.name];
       if (exactMatch) {
         setHint(exactMatch.hint);
         setDoseHint(`Typical dose range: ${exactMatch.doseRange.min}-${exactMatch.doseRange.max} ${exactMatch.doseRange.unit}`);
         
-        const dosageInMg = formData.unit === 'g' ? formData.dosage * 1000 : formData.dosage;
-        const minDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.min * 1000 : exactMatch.doseRange.min;
-        const maxDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.max * 1000 : exactMatch.doseRange.max;
+        const dosageInMg = formData.unit === 'g' ? formData.dosage * 1000 : formData.dosage * (formData.frequency || 1);
+        const minDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.min * 1000 : exactMatch.doseRange.min * exactMatch.frequency;
+        const maxDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.max * 1000 : exactMatch.doseRange.max * exactMatch.frequency;
 
         setIsDoseWarning(dosageInMg < minDoseInMg || dosageInMg > maxDoseInMg);
 
@@ -63,12 +63,11 @@ export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medi
         setIsDoseWarning(false);
       }
     } else {
-      setSuggestions([]);
       setHint('');
       setDoseHint('');
       setIsDoseWarning(false);
     }
-  }, [formData.name, formData.dosage, formData.unit]);
+  }, [formData.name, formData.dosage, formData.unit, formData.frequency]);
 
   const handleChange = (name: keyof Medication, value: any) => {
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -88,7 +87,7 @@ export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medi
 
   return (
     <YStack gap="$4">
-      <Text>Medication Name</Text>
+      <Text col="$color11" fow="300" fos="$5">Medication Name</Text>
       <Input
         f={1}
         placeholder="Medication Name"
@@ -106,14 +105,17 @@ export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medi
       )}
       <Separator />
 
-      <Text>Dosage</Text>
+      <Text col="$color11" fow="300" fos="$5">Dosage</Text>
       <XStack gap="$2">
         <Input
           f={1}
-          placeholder="Dosage"
+          placeholder={"100"}
           keyboardType="numeric"
-          value={formData.dosage.toString()}
-          onChangeText={(value) => handleChange('dosage', parseInt(value))}
+          value={formData.dosage ? formData.dosage.toString() : ''}
+          onChangeText={(value) => {
+            const parsedValue = parseInt(value);
+            handleChange('dosage', isNaN(parsedValue) ? 0 : parsedValue);
+          }}
         />
         <Popover>
           <Popover.Trigger asChild>
@@ -137,10 +139,11 @@ export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medi
           </Popover.Content>
         </Popover>
       </XStack>
-
+      {/*<Text>{formData.dosage}{formData.unit} {formData.frequency <= 1 ? "once" : formData.frequency + " times"} a day</Text>*/}
+      <Text>Total: {formData.dosage * (formData.frequency || 1)}{formData.unit}</Text>
       {doseHint && <Hint body={doseHint} isWarning={isDoseWarning} />}
       <Separator />
-      <Text>Frequency</Text>
+      <Text col="$color11" fow="300" fos="$5">Frequency</Text>
       <XStack ai="center" gap="$2">
         <Text>time(s) per day</Text>
         <Input
@@ -171,7 +174,6 @@ export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medi
           }}
         />
       </XStack>
-      {hint && <Hint body={hint} />}
       <ScrollView horizontal showsHorizontalScrollIndicator>
       {formData.times.map((time, index) => (
         <XStack key={index} gap="$2" px="$2" ai="center" bg="$background" pos="relative">
@@ -195,9 +197,9 @@ export const MedicationForm = ({ medication = null, onSubmit, onCancel }: { medi
         </XStack>
       ))}
       </ScrollView>
+      {hint && <Hint body={hint} />}
 
       <XStack gap="$2" jc="flex-end">
-        <Button onPress={onCancel} variant="outlined">Cancel</Button>
         <Button onPress={() => onSubmit(formData)}>Save</Button>
       </XStack>
 
