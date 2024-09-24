@@ -23,7 +23,7 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
     dosage: 0,
     unit: 'mg',
     frequency: 1,
-    times: ['08:00'] 
+    times: ['08:00']
   });
   const [hint, setHint] = useState('');
   const [doseHint, setDoseHint] = useState('');
@@ -47,15 +47,6 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
         const maxDoseInMg = exactMatch.doseRange.unit === 'g' ? exactMatch.doseRange.max * 1000 : exactMatch.doseRange.max * exactMatch.frequency;
 
         setIsDoseWarning(dosageInMg < minDoseInMg || dosageInMg > maxDoseInMg);
-
-        if (!medication) { // Only auto-fill for new medications
-          setFormData(prev => ({
-            ...prev,
-            frequency: exactMatch.frequency,
-            times: exactMatch.times,
-            unit: exactMatch.doseRange.unit
-          }));
-        }
         setSuggestions([]); // Remove suggestions after exact match
       } else {
         setHint('');
@@ -80,7 +71,15 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
   };
 
   const updateFormDataWithFrequency = (newFrequency) => {
+    if (newFrequency <= 0) {
+      Alert.alert('Please enter a frequency greater than 0.');
+      return;
+    }
     if (newFrequency && !isNaN(newFrequency)) {
+      if (newFrequency >= 20) {
+        Alert.alert('Please enter a frequency less than 20.');
+        return;
+      }
       setFormData(prev => {
         const updatedTimes = newFrequency > prev.times.length
           ? prev.times.concat(Array(newFrequency - prev.times.length).fill('08:00'))
@@ -92,7 +91,7 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
         };
       });
     } else {
-      setFormData(prev => ({ ...prev, frequency: 0 }));
+      handleChange('frequency', '')
     }
   };
 
@@ -165,15 +164,11 @@ export const MedicationForm = ({ medication = null, onSubmit }: { medication?: M
         <Text>time(s) per day</Text>
         <Input
           px="$4"
-          placeholder={formData.frequency.toString()}
+          placeholder={"1"}
           keyboardType="numeric"
-          value={formData.frequency ? formData.frequency.toString() : ''}
+          value={isNaN(formData.frequency) ? '' : formData.frequency.toString()}
           onChangeText={(value) => {
             const newFrequency = parseInt(value);
-            if (newFrequency > 9) {
-              Alert.alert('Please enter a frequency less than 10.');
-              return;
-            }
             updateFormDataWithFrequency(newFrequency);
           }}
         />
