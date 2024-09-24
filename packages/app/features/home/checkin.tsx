@@ -193,9 +193,9 @@ export const CardBasedHealthCheckin = () => {
                   />
                 ))}
               </XStack>
-              <XStack jc="space-between" w="90%">
-                <Text fos={14} col="$gray11">Very Low</Text>
-                <Text fos={14} col="$gray11">Very High</Text>
+              <XStack mb={-15} jc="space-between" w="90%">
+                <Text fos={12} col="$gray11">Very Low</Text>
+                <Text fos={12} col="$gray11">Very High</Text>
               </XStack>
             </>
           );
@@ -327,7 +327,7 @@ export const CardBasedHealthCheckin = () => {
         case 4:
           return "Did you take your meds?";
         case 5:
-          return "";
+          return "Today's summary";
         default:
           return "";
       }
@@ -351,9 +351,8 @@ export const CardBasedHealthCheckin = () => {
           </>
         )}
         <YStack f={1} ai="center" jc='space-between' gap="$2" pos="relative">
-          <Text fos={24} fow="bold">{getTitle()}</Text>
+          <Text fos={18} fow="bold">{getTitle()}</Text>
           {cardContent()}
-
             <XStack w="80%" ai='center' jc='center' gap="$4">
               <TouchableOpacity onPress={handleBack}>
                 {currentCard > 0 && <ChevronLeft />}
