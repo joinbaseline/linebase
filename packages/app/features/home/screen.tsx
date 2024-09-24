@@ -30,6 +30,7 @@ import { todos } from '@my/app/features/todos/TodoData'
 import { STROKE_WIDTH } from '../../utils/svg/constants'
 import { MoodDayTabs } from '../logging/MoodDayTabs'
 import moment from 'moment'
+import { CardBasedHealthCheckin } from './checkin'
 
 const defaultAuthors = [
   {
@@ -46,6 +47,7 @@ const defaultAuthors = [
 
 export function HomeScreen() {
   const [signedIn, setSignedIn] = useAtom(signedInAtom)
+  const [selectedDay, _] = useAtom(selectedDayAtom)
   const router = useRouter();
 
   useEffect(() => {
@@ -63,6 +65,10 @@ export function HomeScreen() {
             <Greetings />
             <MoodDayTabs logscreen={false} />
             <Separator />
+            <H4 fow="700">
+              {moment(selectedDay).isSame(new Date(), 'day') ? 'Today' : moment(selectedDay).format('dddd, MMMM D')}
+            </H4>
+            <CardBasedHealthCheckin />
             <TodoSection />
              {/*
             <YStack gap="$4">
@@ -93,13 +99,8 @@ const quarterMinusSpace = validToken(
   })
 )
 const TodoSection = () => {
-  const [ selectedDay, _ ] = useAtom(selectedDayAtom);
-
   return (
     <YStack gap="$4">
-      <H4 fow="700">
-        {moment(selectedDay).isSame(new Date(), 'day') ? 'Today' : moment(selectedDay).format('dddd, MMMM D')}
-      </H4>
       <YStack>
         <TodoList todos={todos} />
       </YStack>
