@@ -57,7 +57,7 @@ export default function Layout() {
           }}
         />
         <Tabs.Screen
-          name="log"
+          name="logging"
           options={{
             title: 'Log',
             headerShown: true,
@@ -70,7 +70,7 @@ export default function Layout() {
           options={{
             title: 'Resources',
             headerShown: true,
-            header: () => <AuthHeader />,
+            header: () => <AuthHeader title="Resources" noBack />,
             tabBarIcon: ({ size, color }) => <BookOpenText strokeWidth={STROKE_WIDTH} col={color as ColorTokens} size={size} />,
           }}
         />
@@ -79,7 +79,7 @@ export default function Layout() {
           options={{
             title: 'Settings',
             headerShown: true,
-            header: () => <AuthHeader />,
+            header: () => <AuthHeader noBack />,
             tabBarIcon: ({ size, color, focused }) => <ProfileTabIcon focused={focused} strokeWidth={STROKE_WIDTH + 0.25} color={color} size={size} />,
           }}
         />

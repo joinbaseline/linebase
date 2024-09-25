@@ -83,8 +83,6 @@ type CheckinData = {
 
 const StyledCard = styled(Card, {
   bg: '$color1',
-  boc: '$color7',
-  bw: 0.25,
   o: 0.95,
   br: '$4',
   elevation: 1,
