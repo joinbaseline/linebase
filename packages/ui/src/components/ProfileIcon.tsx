@@ -7,9 +7,13 @@ import { useUser } from '@my/app/utils/useUser';
 
 const STROKE_WIDTH = 2;
 
-type TabBarIconProps = Parameters<Exclude<BottomTabNavigationOptions['tabBarIcon'], undefined>>[0];
+type ProfileTabIconProps = {
+  color: string;
+  size: number;
+  focused?: boolean;
+};
 
-export const ProfileTabIcon = ({ color, size }: TabBarIconProps) => {
+export const ProfileTabIcon = ({ color, size, focused=false }: ProfileTabIconProps) => {
   const { avatarUrl } = useUser();
   return (
     <YStack bw={STROKE_WIDTH} boc={validToken(color)} br="$10">

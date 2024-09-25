@@ -9,7 +9,7 @@ export default function Screen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          header: () => <AuthHeader />
+          header: () => <AuthHeader title="Insights" />
         }}
       />
       <InsightsScreen />

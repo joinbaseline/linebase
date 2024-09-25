@@ -1,50 +1,51 @@
+import { useUser } from 'app/utils/useUser';
 import { useEffect, useState } from 'react'
-import Sahha, { SahhaEnvironment, SahhaSensor } from 'sahha-react-native'
+import Sahha, { SahhaEnvironment } from 'sahha-react-native'
+import Constants from 'expo-constants';
 
 const sahhaSettings = {
   environment: SahhaEnvironment.sandbox,
 }
 
-const appId = process.env.EXPO_PUBLIC_SAHHA_APP_ID;
-const appSecret = process.env.EXPO_PUBLIC_SAHHA_APP_SECRET;
-const externalId = process.env.EXPO_PUBLIC_SAHHA_EXTERNAL_ID;
+const appId = Constants?.expoConfig?.extra?.EXPO_PUBLIC_SAHHA_APP_ID;
+const appSecret = Constants.expoConfig?.extra?.EXPO_PUBLIC_SAHHA_APP_SECRET;
 
 type AuthenticationType = {
   loading: boolean
   authenticated: boolean
 }
 
-export const useSahha = () => {
-  const [authenticated, setAuthenticated] = useState<AuthenticationType>({
+export const useSahhaHook = () => {
+  const [status, setStatus] = useState<AuthenticationType>({
     loading: true,
-    authenticated: false,
+    authenticated: false
   })
+  const user = useUser();
+  const externalId = user?.user?.id;
   useEffect(() => {
-    if (appId && appSecret && externalId) {
-      Sahha.configure(sahhaSettings, (error: string) => {
-        if (error) {
-          console.error(`Error: ${error}`)
-        } else {
-          console.log('configured')
-        }
-      })
+    Sahha.configure(sahhaSettings, (error: string, success: boolean) => {
+      if (error) {
+        console.error(`Error: ${error}`)
+      } else {
+        console.log("Sahha configuration success:", success)
+        Sahha.isAuthenticated((error, success) => {
+          console.log(`Sahha isAuthenticated: ${error} ${success}`)
+          setStatus({ loading: false, authenticated: success })
+          if (!status.authenticated || !success) {
+            if (appId && appSecret && externalId) {
+              Sahha.authenticate(appId, appSecret, externalId, (error, success) => {
+                console.log(`Sahha authentication: ${error} ${success}`)
+                setStatus({ loading: false, authenticated: success })
+                if (error) {
+                  console.log(`Sahha authentication error: ${error}`)
+                }
+              })
 
-      Sahha.authenticate(appId, appSecret, externalId, (error, success) => {
-        console.log(`Sahha authentication: ${error} ${success}`)
-        setAuthenticated({ loading: false, authenticated: success })
-
-        if (error) {
-          console.log(`Sahha authentication error: ${error}`)
-        }
-      })
-
-      Sahha.enableSensors([SahhaSensor.step_count, SahhaSensor.sleep], (error, status) => {
-        console.log(`Sahha enable sensors success: ${!error}`)
-        if (error) {
-          console.log(`Sahha enable sensors error: ${error}`)
-        }
-      })
-    }
+            }
+          }
+        })
+      }
+    })
   }, [])
-  return authenticated
+  return status;
 }

@@ -14,7 +14,6 @@ export const Container = ({ children, ...props }: CustomYStackProps) => {
     <YStack
       pr={safeAreaInsets.right}
       pl={safeAreaInsets.left}
-      pb={safeAreaInsets.bottom}
       theme={modeTheme as ThemeName} // Use modeTheme directly
       f={1}
       bg="$color1"

@@ -84,6 +84,8 @@ const defineConfig = (): ExpoConfig => ({
     eas: {
       projectId: '25ed117e-1782-4c05-aa22-7cfad5664026',
     },
+    EXPO_PUBLIC_SAHHA_APP_ID: process.env.EXPO_PUBLIC_SAHHA_APP_ID,
+    EXPO_PUBLIC_SAHHA_APP_SECRET: process.env.EXPO_PUBLIC_SAHHA_APP_SECRET,
   },
   runtimeVersion: {
     policy: 'appVersion',

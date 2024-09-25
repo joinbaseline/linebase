@@ -38,7 +38,7 @@ export const useUser = () => {
   const [localAbout, setLocalAbout] = useAtom(localAboutAtom);
   const [localAvatar, setLocalAvatar] = useAtom(localAvatarAtom);
 
-  const user = session?.user || { id: "testID", email: localEmail }
+  const user = session?.user || { id: "test-external-id", email: localEmail }
   const profile = {
     email: localEmail,
     firstName: localFirstName,
