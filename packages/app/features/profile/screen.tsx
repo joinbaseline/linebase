@@ -30,7 +30,7 @@ export function ProfileScreen() {
       <WaveBackground />
       <YStack f={1} gap="$4">
         <XStack gap="$2" jc="center" zi={10}>
-          <ProfileTabIcon focused={false} color="black" size={128} strokeWidth={STROKE_WIDTH + 0.25} />
+          <ProfileTabIcon focused={false} color="$color12" size={128} strokeWidth={STROKE_WIDTH + 0.25} />
         </XStack>
         <YStack gap="$2">
           {name ? (

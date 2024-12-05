@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "b": "expo prebuild",
+    "b:dev:ios": "cross-env NODE_ENV=development APP_ENV=development eas build --profile development:simulator --platform ios --local",
     "clean": "react-native-clean-project",
     "start": "EXPO_USE_METRO_WORKSPACE_ROOT=1 npx expo start -c",
     "android": "yarn expo run:android",
