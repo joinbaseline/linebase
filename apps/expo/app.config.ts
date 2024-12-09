@@ -75,6 +75,7 @@ const defineConfig = (): ExpoConfig => ({
     'expo-apple-authentication',
     'expo-router',
     'expo-build-properties',
+    'expo-secure-store',
     'expo-font',
   ],
   extra: {
