@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useSessionContext } from './supabase/useSessionContext'
 import { useSupabase } from './supabase/useSupabase'
 import { useAtom } from 'jotai'
-import { localAboutAtom, localEmailAtom, localFirstNameAtom, localLastNameAtom } from './atoms.native'
+import { localAboutAtom, localAvatarAtom, localEmailAtom, localFirstNameAtom, localLastNameAtom } from './atoms.native'
 
 function useProfile() {
   const { session } = useSessionContext()
@@ -36,9 +36,9 @@ export const useUser = () => {
   const [localFirstName, setLocalFirstName] = useAtom(localFirstNameAtom);
   const [localLastName, setLocalLastName] = useAtom(localLastNameAtom);
   const [localAbout, setLocalAbout] = useAtom(localAboutAtom);
-  const [localAvatar, setLocalAvatar] = useAtom(localLastNameAtom);
+  const [localAvatar, setLocalAvatar] = useAtom(localAvatarAtom);
 
-  const user = session?.user || { id: "testID", email: localEmail }
+  const user = session?.user || { id: "test-external-id", email: localEmail }
   const profile = {
     email: localEmail,
     firstName: localFirstName,

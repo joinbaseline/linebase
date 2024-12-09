@@ -1,3 +1,4 @@
+import { atom } from "jotai";
 import { atomWithMMKV } from "./storage.native";
 
 
@@ -14,3 +15,6 @@ export const localLastNameAtom = atomWithMMKV('localLastName', "");
 export const localAvatarAtom = atomWithMMKV('localAvatarURL', "");
 export const localAboutAtom = atomWithMMKV('localAbout', "");
 export const signedInAtom = atomWithMMKV('signedIn', false);
+
+// Atom to store the globally selected day
+export const selectedDayAtom = atom<string>(new Date().toISOString().split('T')[0]);

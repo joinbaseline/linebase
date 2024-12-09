@@ -5,12 +5,11 @@ import {
   Paragraph,
   SubmitButton,
   Text,
-  ThemeName,
   XStack,
   YStack,
   isWeb,
 } from '@my/ui'
-import { ChevronLeft, ChevronRight } from '@tamagui/lucide-icons'
+import { ChevronRight } from '@tamagui/lucide-icons'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
 import { useEffect } from 'react'
@@ -24,7 +23,7 @@ import { localEmailAtom, localFirstNameAtom, localLastNameAtom, localPasswordAto
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 import { useRouter } from 'solito/router'
-import { useThemeSetting } from 'app/provider/theme'
+import { Container } from '@my/ui/src/components/Container'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
 
@@ -36,7 +35,6 @@ const SignUpSchema = z.object({
 
 export const SignUpScreen = () => {
   const supabase = useSupabase()
-  const { current: modeTheme } = useThemeSetting()
 
   const [localEmail, setLocalEmail] = useAtom(localEmailAtom)
   const [localPassword, setLocalPassword] = useAtom(localPasswordAtom);
@@ -95,7 +93,7 @@ export const SignUpScreen = () => {
   }
 
   return (
-  <YStack theme={modeTheme as ThemeName} f={1} bg="$color1">
+  <Container>
     <WaveBackground />
     <FormProvider {...form}>
       {form.formState.isSubmitSuccessful ? (
@@ -143,7 +141,7 @@ export const SignUpScreen = () => {
         </SchemaForm>
       )}
     </FormProvider>
-  </YStack>
+  </Container>
   )
 }
 

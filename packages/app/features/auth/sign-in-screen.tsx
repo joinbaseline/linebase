@@ -14,6 +14,8 @@ import { localEmailAtom, localPasswordAtom, signedInAtom } from 'app/utils/atoms
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { SocialLogin } from './components/SocialLogin'
 import { useThemeSetting } from 'app/provider/theme'
+import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets'
+import { Container } from '@my/ui/src/components/Container'
 
 const { useParams, useUpdateParams } = createParam<{ email?: string }>()
 
@@ -23,7 +25,6 @@ const SignInSchema = z.object({
 })
 
 export const SignInScreen = () => {
-  const { current: modeTheme } = useThemeSetting()
   const supabase = useSupabase()
   const router = useRouter()
 
@@ -80,8 +81,8 @@ export const SignInScreen = () => {
   }
 
   return (
-  <YStack theme={modeTheme as ThemeName} f={1} bg="$color1">
-    <WaveBackground fill={"$red3"} flipX />
+  <Container>
+    <WaveBackground flipX />
     <FormProvider {...form}>
       <SchemaForm
         form={form}
@@ -129,7 +130,7 @@ export const SignInScreen = () => {
       {/* this is displayed when the session is being updated - usually when the user is redirected back from an auth provider */}
       {isLoadingSession && <LoadingOverlay />}
     </FormProvider>
-  </YStack>
+  </Container>
   )
 }
 
@@ -149,7 +150,7 @@ const ForgotPasswordLink = () => {
 
   return (
     <Link href={`/reset-password?${new URLSearchParams(email ? { email } : undefined)}`}>
-      <Paragraph mt="$1" textDecorationLine="underline">
+      <Paragraph mt="$1" textDecorationLine="underline" als="flex-end">
         Forgot your password?
       </Paragraph>
     </Link>

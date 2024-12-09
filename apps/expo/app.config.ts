@@ -6,7 +6,7 @@ const defineConfig = (): ExpoConfig => ({
   slug: 'baseline',
   jsEngine: 'hermes',
   scheme: 'baseline',
-  version: '1.0.8',
+  version: '1.0.9',
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'automatic',
@@ -67,14 +67,15 @@ const defineConfig = (): ExpoConfig => ({
           enableProguardInReleaseBuilds: true,
           enableShrinkResourcesInReleaseBuilds: true,
         },
-        // ios: {
-        //   deploymentTarget: '15.0',
-        // },
+        ios: {
+          deploymentTarget: '15.0',
+        },
       },
     ],
     'expo-apple-authentication',
     'expo-router',
     'expo-build-properties',
+    'expo-secure-store',
     'expo-font',
   ],
   extra: {
@@ -84,6 +85,8 @@ const defineConfig = (): ExpoConfig => ({
     eas: {
       projectId: '25ed117e-1782-4c05-aa22-7cfad5664026',
     },
+    EXPO_PUBLIC_SAHHA_APP_ID: process.env.EXPO_PUBLIC_SAHHA_APP_ID,
+    EXPO_PUBLIC_SAHHA_APP_SECRET: process.env.EXPO_PUBLIC_SAHHA_APP_SECRET,
   },
   runtimeVersion: {
     policy: 'appVersion',

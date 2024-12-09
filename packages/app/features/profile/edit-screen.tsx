@@ -1,16 +1,17 @@
-import { Avatar, FullscreenSpinner, SubmitButton, Theme, YStack, useToastController } from '@my/ui'
+import { FullscreenSpinner, SubmitButton, Theme, YStack, useToastController } from '@my/ui'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SchemaForm, formFields } from 'app/utils/SchemaForm'
 import { useSupabase } from 'app/utils/supabase/useSupabase'
 import { useUser } from 'app/utils/useUser'
 import { createParam } from 'solito'
-import { SolitoImage } from 'solito/image'
 import { useRouter } from 'solito/router'
-import { CircleUser } from '@tamagui/lucide-icons'
 import { z } from 'zod'
 
-import { api } from '../../utils/api'
-import { UploadAvatar } from '../settings/components/upload-avatar'
+import { api } from 'app/utils/api'
+import { Container } from '@my/ui/src/components/Container'
+import { ProfileTabIcon } from '@my/app/components/ProfileIcon'
+import { STROKE_WIDTH } from '@my/app/utils/svg/constants'
+import { UploadAvatar } from '@my/app/features/settings/components/upload-avatar'
 
 const { useParams } = createParam<{ edit_name?: '1'; edit_about?: '1' }>()
 export const EditProfileScreen = () => {
@@ -60,6 +61,7 @@ const EditProfileForm = ({
   })
 
   return (
+    <Container>
     <SchemaForm
       schema={ProfileSchema}
       props={{
@@ -85,22 +87,13 @@ const EditProfileForm = ({
         <>
           <YStack mb="$10">
             <UploadAvatar>
-              <UserAvatar />
+              <ProfileTabIcon focused={false} color="black" size={128} strokeWidth={STROKE_WIDTH} />
             </UploadAvatar>
           </YStack>
           {Object.values(fields)}
         </>
       )}
     </SchemaForm>
-  )
-}
-
-const UserAvatar = () => {
-  const { avatarUrl } = useUser()
-  return (
-    avatarUrl !== "" ? (
-      <Avatar circular size={128}>
-        <SolitoImage src={avatarUrl} alt="your avatar" width={128} height={128} />
-      </Avatar>): <CircleUser size={128} />
+  </Container>
   )
 }

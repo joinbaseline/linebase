@@ -12,6 +12,7 @@ import { ChevronRight } from '@tamagui/lucide-icons'
 import { WaveBackground } from '@my/ui/src/components/WaveBackground'
 import { useRouter } from 'solito/router'
 import { useThemeSetting } from 'app/provider/theme'
+import { SkipButton } from './components/Skip'
 
 export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
   const safeAreaInsets = useSafeAreaInsets()
@@ -30,9 +31,7 @@ export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
       pl={safeAreaInsets.left}
     >
       <WaveBackground />
-      {/* Two 50/50 evenly spaces YStacks, second one has content at the end */}
       <YStack f={1} jc="space-evenly">
-        {/* This text should be  */}
         <YStack f={1/2} p="$5" jc="center" ai="center">
           <YStack ai='flex-start' mr="$7">
             <H1 mb={-8} maxFontSizeMultiplier={1} size="$13" col="$color12">
@@ -60,6 +59,7 @@ export const Start = ({ handleContinue }: {handleContinue: () => void}) => {
               <Button.Text ml="$4" col="$color" fow={"200"}>Get Started</Button.Text>
             </Button>
           </XStack>
+          <SkipButton />
         </YStack>
       </YStack>
     </View>

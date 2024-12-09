@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
-import { styled, ScrollView, YStack, XStack, Paragraph, Button, Input, getTokenValue, Theme, Card, useTheme } from 'tamagui';
+import { useEffect, useRef, useState } from 'react';
+import { KeyboardAvoidingView, TouchableOpacity, ScrollView } from 'react-native';
+import { YStack, XStack, Paragraph, Button, Input, getTokenValue, Card, useTheme } from 'tamagui';
 import { ArrowUpFromDot, Undo } from '@tamagui/lucide-icons';
 import { useRouter } from 'solito/router';
-import { useSafeAreaInsets } from 'app/utils/useSafeAreaInsets';
+
+const DELAY_1 = 500;
+const DELAY_2 = 700;
 
 export const ChatScreen = () => {
-  const safeAreaInsets = useSafeAreaInsets()
+  const scrollViewRef = useRef<ScrollView>(null);
   const router = useRouter()
   const [messages, setMessages] = useState([
     { id: 1, text: 'How are you feeling today?', sender: 'system' },
@@ -31,19 +33,25 @@ export const ChatScreen = () => {
   const handleSend = (msg?: string) => {
     const newText = msg?.trim() || inputText.trim();
     if (newText) {
-      setMessages([...messages, { id: messages.length + 1, text: newText, sender: 'user' }]);
+      setMessages(prevMessages => {
+        const updatedMessages = [...prevMessages, { id: prevMessages.length + 1, text: newText, sender: 'user' }];
+        return updatedMessages;
+      });
       setInputText('');
 
       const nextQuestionId = currentQuestionID + 1;
-      setCurrentQuestionID(nextQuestionId)
+      setCurrentQuestionID(nextQuestionId);
       const nextQuestion = questionsAndReplies.find(q => q.id === nextQuestionId);
       if (nextQuestion) {
         setTimeout(() => {
-          setMessages(prevMessages => [
-            ...prevMessages,
-            { id: prevMessages.length + 1, text: nextQuestion.question, sender: 'system' },
-          ]);
-        }, 800); // Adding a delay to simulate conversation flow
+          setMessages(prevMessages => {
+            const updatedMessages = [
+              ...prevMessages,
+              { id: prevMessages.length + 1, text: nextQuestion.question, sender: 'system' },
+            ];
+            return updatedMessages;
+          });
+        }, DELAY_2); // Adding a delay to simulate conversation flow
       }
     }
   };
@@ -79,8 +87,12 @@ export const ChatScreen = () => {
     keyboardVerticalOffset={120}
   >
     <ScrollView
+      ref={scrollViewRef}
+      onContentSizeChange={(contentWidth, contentHeight) => {
+        scrollViewRef.current?.scrollToEnd({animated: true});
+      }}
       style={{ flex: 1 }}
-      contentContainerStyle={{ fg: 1, jc: 'flex-end' }}
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-end' }}
       showsVerticalScrollIndicator={false}
     >
       {messages.map((message) => (
@@ -100,24 +112,27 @@ export const ChatScreen = () => {
             <ContinueButton handleContinue={handleContinue} />
           </XStack>
         ) : (
-        <XStack gap='$2' py="$2">
-          <Input
-            f={1}
-            bw={0}
-            ml={5}
-            size="$3.5"
-            br={40}
-            placeholderTextColor={"$color12"}
-            col={"$color12"}
-            // @ts-ignore
-            bg={`${getTokenValue("$color.white2")}60`}
-            value={inputText}
-            onChangeText={setInputText}
-            placeholder="Message"
-          />
-          <UndoButton handleUndo={handleUndo} /> 
-          <SendButton handleSend={() => handleSend()} />
-        </XStack>
+        <YStack f={1}>
+          <XStack gap='$2' py="$2">
+            <Input
+              f={1}
+              bw={0}
+              ml={5}
+              size="$3.5"
+              br={40}
+              placeholderTextColor={"$color12"}
+              col={"$color12"}
+              // @ts-ignore
+              bg={`${getTokenValue("$color.white2")}60`}
+              value={inputText}
+              onChangeText={setInputText}
+              placeholder="Message"
+            />
+            <UndoButton handleUndo={handleUndo} /> 
+            <SendButton handleSend={() => handleSend()} />
+          </XStack>
+
+        </YStack>
         )}
       </XStack>
     </YStack>
@@ -201,8 +216,8 @@ const MessageBubble = ({ sender, children }) => {
       y={0}
       opacity={1}
       animation="lazy"
-      enterStyle={{ scale: 0.7, y: -10 }}
-      exitStyle={{ scale: 0.7, y: -10 }}
+      enterStyle={{ y: -10 }}
+      exitStyle={{ y: -10 }}
       miw="$5"
       ai='center'
       bg={sender === 'user' ? "$color4" : theme.gray12}
@@ -242,7 +257,7 @@ const ReplyPrompts = ({currentQuestionID, questionsAndReplies, handlePress}:{
     if (currentQuestion) {
       setTimeout(() => {
         setReplies(currentQuestion.replies)
-      }, wasUndo ? 700 : 1500)
+      }, wasUndo ? DELAY_1 : DELAY_1)
     }
   }, [currentQuestionID])
 
